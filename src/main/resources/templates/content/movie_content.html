@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${movie.movieName}">영화 상세보기</title>
+    <link rel="icon" href="data:;base64, iVBORw0KGgo=">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/content/movie_content.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main class="movie_content">
+    <input type="hidden" id="username" th:value="${user.username}">
+    <input type="hidden" id="movieNo" th:value="${movie.movieNo}">
+    <input type="hidden" id="isSubscriptionValid" th:value="${isSubscriptionValid}">
+    <section class="movie_info">
+        <article class="movie_article1">
+            <article class="movie_article2">
+                <div class="movie_content_content">
+                    <div class="movie_content_img">
+                        <picture>
+                            <img th:src="@{${movie.movieImg}}" alt="${movie.movieName}" class="poster_img">
+                        </picture>
+                    </div>
+                    <div class="movie_content_text">
+                        <h2 th:text="${movie.movieName}">영화 제목</h2>
+                        <div class="content_text">
+                            <button class="movie_first_watch" onclick="playFirstEpisode()">
+                                <span>영화 시청하기</span>
+                            </button>
+                            <div class="heart_share">
+                                <button class="heart" id="heart-image" data-drama-id="${movie.movieNo}">
+                                    <img src="/img/svg_heart-removebg-preview.png" alt="하트 아이콘">
+                                    <span class="span_heart span_fav">찜</span>
+                                </button>
+
+                            </div>
+                        </div>
+                        <p th:text="${movie.movieText}">영화 설명</p>
+                    </div>
+                </div>
+            </article>
+        </article>
+        <section class="movie_content_ep">
+            <div class="movie_content_title">
+                <div class="movie_select_control">
+                    <div class="select_control">
+                        <div class="movie_select">
+                            <span th:text="${movie.movieName}">영화 제목</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="movie_ep_list" th:if="${isSubscriptionValid != 'None'}">
+                <li class="ep_img">
+                    <div class="ep_img_detail" sec:authorize="isAuthenticated()" onclick="playVideo()">
+                        <video id="detailsvideo" controls>
+                            <source th:if="${movie.videoFileName != null}" th:src="@{${movie.videoFileName}}" type="video/mp4">
+                            <p th:if="${movie.videoFileName == null}">비디오 파일이 없습니다.</p>
+                        </video>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </section>
+</main>
+<script th:src="@{/js/heart.js}"></script>
+<script>
+    const username = document.getElementById('username').value;
+    const movieNo = document.getElementById('movieNo').value;
+    const isSubscriptionValid = document.getElementById('isSubscriptionValid').value;
+
+    // 콘솔에 값 출력하기
+    console.log("username:", username);
+    console.log("movieNo:", movieNo);
+    console.log("이용권:", isSubscriptionValid);
+
+    function playFirstEpisode() {
+        // 이용권 상태를 확인
+        if (isSubscriptionValid === "None") {
+            alert("이용권이 결제가 안되어있습니다.");
+            window.location.href = "/mypage";
+            return;
+        }
+
+        // 이용권이 유효한 경우 비디오 재생
+        const video = document.getElementById('detailsvideo');
+        if (video) {
+            video.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            video.play();
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { // Safari
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { // IE/Edge
+                video.msRequestFullscreen();
+            }
+        }
+
+        // 시청 기록 저장
+        fetch('/watch-history/movie', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `movieId=${movieNo}`
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('시청 기록 저장 완료:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+</body>
+</html>

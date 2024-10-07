@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>관심있는 영화</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage/my_watch.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main class="my_movie">
+    <section class="my_movie_header">
+        <h1>관심있는 영화</h1>
+    </section>
+    <section class="my_movie_list">
+        <div class="my_movie_delete">
+            <div id="editOptions" style="display: none;">
+                <button type="button" id="selectAllButton">전체 선택</button>
+                <span>|</span>
+                <button type="button" id="deleteButton">삭제</button>
+            </div>
+            <button type="button" id="editButton">편집</button>
+        </div>
+        <ul>
+            <li th:each="favorite : ${favoriteList}" th:if="${favorite.movieNo != null}">
+                <div class="image-container">
+                    <input type="checkbox" class="delete-checkbox" th:value="${favorite.movieNo != null ? favorite.movieNo.movieNo : 0}" style="display:none;" id="checkbox-${favorite.favoriteNo}"/>
+                    <label class="checkbox-label" for="checkbox-${favorite.favoriteNo}">
+                        <a th:href="${favorite.movieNo != null ? '/movie/' + favorite.movieNo.movieNo : '#'}">
+                            <img th:src="${favorite.movieNo != null ? favorite.movieNo.movieImg : '#'}" alt="영화 이미지">
+                        </a>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </section>
+</main>
+
+<footer th:replace="common/footer :: footerFragment"></footer>
+<script>
+    let isAllSelected = false; // 전체 선택 상태를 추적하기 위한 변수
+
+    document.getElementById('editButton').addEventListener('click', function() {
+        const editOptions = document.getElementById('editOptions');
+        const editButton = document.getElementById('editButton');
+        const checkboxes = document.querySelectorAll('.delete-checkbox');
+
+        if (editOptions.style.display === 'none') {
+            editOptions.style.display = 'block';
+            editButton.textContent = '완료'; // 버튼 텍스트 변경
+            checkboxes.forEach(checkbox => {
+                checkbox.style.display = 'inline-block'; // 체크박스 표시
+            });
+        } else {
+            editOptions.style.display = 'none';
+            editButton.textContent = '편집'; // 버튼 텍스트 원래대로 변경
+            checkboxes.forEach(checkbox => {
+                checkbox.style.display = 'none'; // 체크박스 숨김
+            });
+        }
+    });
+
+    document.getElementById('deleteButton').addEventListener('click', function() {
+        const checkedCheckboxes = Array.from(document.querySelectorAll('.delete-checkbox:checked')); // 클래스 이름 수정
+        const idsToDelete = checkedCheckboxes.map(checkbox => parseInt(checkbox.value)).filter(id => id > 0); // 0 이상만 필터링
+
+        console.log('선택된 영화 ID 목록:', idsToDelete); // 선택된 영화 ID를 로그로 출력
+
+        if (idsToDelete.length > 0) {
+            if (confirm('정말로 삭제하시겠습니까?')) {
+                fetch('/my_movie/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(idsToDelete),
+                })
+                .then(response => response.json()) // 서버 응답을 JSON으로 받음
+                .then(data => {
+                    console.log('서버 응답:', data); // 서버 응답 로그 출력
+                    if (data.message === "삭제 성공") {
+                        location.reload(); // 삭제 성공 시 페이지 새로고침
+                    } else {
+                        alert(data.error || data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('에러 메시지:', error);
+                    alert(error.message);
+                });
+            }
+        } else {
+            alert('삭제할 영화를 선택하세요.');
+        }
+    });
+
+    // 전체 선택 버튼 클릭 시
+    $('#selectAllButton').on('click', function () {
+        if (isAllSelected) {
+            // 전체 해제
+            $('.delete-checkbox').prop('checked', false);
+            $(this).text('전체 선택');  // 버튼 텍스트 변경
+        } else {
+            // 전체 선택
+            $('.delete-checkbox').prop('checked', true);
+            $(this).text('전체 해제');  // 버튼 텍스트 변경
+        }
+        isAllSelected = !isAllSelected;  // 상태 반전
+    });
+
+    // 편집 모드일 때 이미지를 클릭해도 상세 페이지로 이동하지 않도록 설정
+    $('.image-container a').on('click', function (event) {
+        if ($('#editButton').text() === '완료') {
+            event.preventDefault();  // 편집 모드일 때는 상세 페이지로 이동하지 않음
+            const checkbox = $(this).closest('.image-container').find('.delete-checkbox');
+            checkbox.prop('checked', !checkbox.prop('checked'));  // 체크박스 상태를 반전
+        }
+    });
+
+    // 체크박스 클릭 시 이벤트 전파 방지 (체크박스 클릭 시 이미지 클릭 방지)
+    $('.delete-checkbox').on('click', function (event) {
+        event.stopPropagation();  // 체크박스 클릭 시 이미지 클릭 이벤트가 전달되지 않도록 전파 방지
+    });
+</script>
+
+</body>
+</html>

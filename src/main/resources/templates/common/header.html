@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayVista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+</head>
+<body>
+<header th:fragment="headerFragment">
+    <div class="ott_header">
+        <div class="logo_name">
+            <a th:href="@{/main}">
+                <h1>PlayVista</h1>
+            </a>
+        </div>
+        <div class="ott_sort">
+            <ul>
+                <li><a th:href="@{/drama_list}">드라마</a></li>
+                <li><a th:href="@{/variety_list}">예능</a></li>
+                <li><a th:href="@{/movie_list}">영화</a></li>
+            </ul>
+            <div class="search">
+                <div class="search_page">
+                    <form id="searchForm" th:action="@{/search_results}" method="POST">
+                        <input type="text" id="searchInput" name="query">
+                        <button type="button" class="find-button" id="searchButton">
+                            <img th:src="@{/img/free-icon-search-interface-symbol-54481.png}" alt="검색">
+                        </button>
+                    </form>
+                </div>
+                <ul class="my-menu">
+                    <li>
+                        <button id="myButton" class="my-button">
+                            <img th:src="@{/img/people.png}" alt="">
+                        </button>
+                        <ul class="login-menu" id="loginMenu">
+                            <li>
+                                <a sec:authorize="isAuthenticated() and not hasRole('ROLE_ADMIN')" th:href="@{/mypage}">마이페이지</a>
+                                <a sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')" th:href="@{/admin}">관리자 페이지</a>
+                                <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                                <a id="logoutButton" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    // 자바스크립트 코드가 실행되는지 확인하는 로그
+    console.log('Script loaded');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM fully loaded and parsed'); // DOM 로드 확인
+
+        // 버튼 클릭 이벤트 추가
+        const searchButton = document.getElementById('searchButton');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+
+        if (searchButton) {
+            searchButton.addEventListener('click', function () {
+                console.log('Search Button Clicked'); // 클릭 로그
+                const inputValue = searchInput.value.trim();
+
+                if (inputValue === "") {
+                    console.log('Search input is empty'); // 빈 입력 확인
+                    alert("검색어를 입력해주세요.");
+                } else {
+                    console.log('Search input is not empty'); // 입력값이 있을 때
+                    searchForm.submit();
+                }
+            });
+        } else {
+            console.log('Search Button not found'); // 버튼이 없는 경우
+        }
+    });
+</script>
+
+</body>
+</html>

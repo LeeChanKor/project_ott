@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>결제 정보페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage/credit_info.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main class="credit_info">
+    <div class="credit_info_box">
+        <h2>결제정보</h2>
+        <table>
+            <tr>
+                <th>사용자</th>
+                <td th:text="${username}"></td>
+            </tr>
+            <tr>
+                <th>이용권</th>
+                <td th:text="${membership}"></td>
+            </tr>
+            <tr>
+                <th>결제금액</th>
+<!--                <td th:text="${paymentAmount}"></td>-->
+                <td> <span th:text="${paymentAmount}"></span>원</td>
+            </tr>
+            <tr>
+                <th>결제일자</th>
+                <td th:text="${paymentDate}"></td>
+            </tr>
+        </table>
+        <button type="button" th:onclick="'location.href=\'/mypage\''">마이페이지로</button>
+    </div>
+
+
+</main>
+
+</body>
+</html>

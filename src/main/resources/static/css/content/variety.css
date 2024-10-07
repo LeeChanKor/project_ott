@@ -1,0 +1,34 @@
+#variety_name {
+    display: flex;
+    align-items: center;
+    margin-left: 108px;
+}
+
+#variety_name h3{
+    margin-right: 20px;
+    font-size: 40px;
+}
+
+
+
+.variety_series {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    margin-left: 108px;
+}
+
+.variety_content {
+    margin-top: 10px;
+}
+
+.variety_series .variety_content img {
+    width: 232px;
+    height: 356px;
+    border-radius: 7px;
+    margin-right: 10px;
+}
+
+.variety_series .variety_content img:hover {
+    transform: translateY(-2%);
+}

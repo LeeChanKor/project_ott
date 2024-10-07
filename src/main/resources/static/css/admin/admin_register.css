@@ -1,0 +1,343 @@
+/* 드라마 등록 페이지 */
+.admin_drama_register {
+    display: flex;
+    margin-left: 44px;
+}
+
+.drama_register_form {
+    width: 1000px;
+    margin: 125px 580px;
+}
+
+
+
+.drama_register_form h1 {
+    text-align: center;
+}
+
+.drama_register_form_table table {
+    border: 1px solid #fff;
+    width: 1000px;
+    border-collapse: collapse;
+    height: 145px;
+    margin-top: 20px;
+}
+
+.drama_register_form_table table th,
+.drama_register_form_table table td {
+    border: 1px solid #fff;
+}
+
+.drama_register_form_table table th {
+    width: 70px;
+}
+
+.drama_register_form_table table td {
+    width: 100px;
+}
+.drama_register_form_table video {
+    width: 601px;
+    height: 400px;
+
+}
+.drama_register_form input {
+    background-color: inherit;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 500px;
+}
+
+.drama_register_form textarea {
+    background-color: inherit;
+    resize: none;
+    width: 500px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: #fff;
+}
+
+.drama_register_form button{
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 444px;
+}
+
+#videoPreview {
+    max-width: 100%;
+    height: auto;
+    display: none; /* Initially hidden */
+}
+
+/* 영화 등록 페이지 */
+
+.admin_movie_register {
+    display: flex;
+    margin-left: 44px;
+}
+
+.movie_register_form {
+    width: 1000px;
+    margin: 125px 580px;
+}
+
+
+
+.movie_register_form h1 {
+    text-align: center;
+}
+
+.movie_register_form_table table {
+    border: 1px solid #fff;
+    width: 1000px;
+    border-collapse: collapse;
+    height: 145px;
+    margin-top: 20px;
+}
+
+.movie_register_form_table table th,
+.movie_register_form_table table td {
+    border: 1px solid #fff;
+}
+
+.movie_register_form_table table th {
+    width: 70px;
+}
+
+.movie_register_form_table table td {
+    width: 100px;
+}
+.movie_register_form_table video {
+    width: 800px;
+    height: 400px;
+
+}
+.movie_register_form_table input {
+    background-color: inherit;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 500px;
+}
+
+.movie_register_form_table textarea {
+    background-color: inherit;
+    resize: none;
+    width: 500px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: #fff;
+}
+
+.movie_register_form button{
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 444px;
+}
+
+
+
+
+/* 예능 등록 페이지 */
+
+.admin_variety_register {
+    display: flex;
+    margin-left: 44px;
+}
+
+.variety_register_form {
+    width: 1000px;
+    margin: 125px 580px;
+}
+
+
+
+.variety_register_form h1 {
+    text-align: center;
+}
+
+.variety_register_form_table table {
+    border: 1px solid #fff;
+    width: 1000px;
+    border-collapse: collapse;
+    height: 145px;
+    margin-top: 20px;
+}
+
+.variety_register_form_table table th,
+.variety_register_form_table table td {
+    border: 1px solid #fff;
+}
+
+.variety_register_form_table table th {
+    width: 70px;
+}
+
+.variety_register_form_table table td {
+    width: 100px;
+}
+.variety_register_form_table video {
+    width: 800px;
+    height: 400px;
+
+}
+.variety_register_form_table input {
+    background-color: inherit;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 500px;
+}
+
+.variety_register_form_table textarea {
+    background-color: inherit;
+    resize: none;
+    width: 500px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: #fff;
+}
+
+.variety_register_form button {
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 444px;
+}
+
+
+/* 관리자 등록 페이지 */
+.admin_register {
+    display: flex;
+    margin-left: 44px;
+}
+
+.admin_register_form {
+    width: 1000px;
+    margin: 125px 580px;
+}
+
+
+
+.admin_register_form h1 {
+    text-align: center;
+}
+
+.admin_register_form_table table {
+    border: 1px solid #fff;
+    width: 1000px;
+    border-collapse: collapse;
+    height: 145px;
+    margin-top: 20px;
+}
+
+.admin_register_form_table table th,
+.admin_register_form_table table td {
+    border: 1px solid #fff;
+}
+
+.admin_register_form_table table th {
+    width: 70px;
+}
+
+.admin_register_form_table table td {
+    width: 100px;
+    padding: 10px;
+}
+.admin_register_form_table video {
+    width: 601px;
+    height: 400px;
+
+}
+.admin_register_form input {
+    background-color: inherit;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 500px;
+}
+
+.admin_register_form textarea {
+    background-color: inherit;
+    resize: none;
+    width: 500px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: #fff;
+}
+.admin_list_register {
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 444px;
+
+}
+.admin_button {
+    display:flex;
+    justify-content: center;
+
+}
+
+.admin_delete_button{
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+
+.admin_detail_list {
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFF;
+    color: #000;
+    border: 1px solid #FFF;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: bold;
+
+
+}

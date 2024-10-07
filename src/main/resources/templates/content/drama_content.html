@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${drama.dramaName}">드라마 상세보기</title>
+    <link rel="icon" href="data:;base64, iVBORw0KGgo=">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/content/drama_content.css}">
+
+
+    <meta name="csrf-token" content="${_csrf.token}"/>
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main class="drama_content">
+    <input type="hidden" id="username" th:value="${user.username}">
+    <input type="hidden" id="dramaNo" th:value="${drama.dramaNo}">
+    <input type="hidden" id="isSubscriptionValid" th:value="${isSubscriptionValid}">
+
+    <section class="drama_info">
+        <article class="drama_article1">
+            <article class="drama_article2">
+                <div class="drama_content_content">
+                    <div class="drama_content_img">
+                        <picture>
+                            <img th:src="@{${drama.dramaImg}}" alt="${drama.dramaName}" class="poster_img">
+                        </picture>
+                    </div>
+                    <div class="drama_content_text">
+                        <h2 th:text="${drama.dramaName}">드라마 제목</h2>
+                        <div class="content_text">
+                            <button class="drama_first_watch" onclick="playFirstEpisode()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16">
+                                    <path data-name="\uB2E4\uAC01형 4" d="M12.17 7.489a.6.6 0 010 1.022L.915 15.437a.6.6 0 01-.914-.511V1.074A.6.6 0 01.915.563z" opacity="0.874"></path>
+                                </svg>
+                                <span>1화 시청하기</span>
+                            </button>
+                            <div class="heart_share">
+                                <!-- 찜 버튼 -->
+                                <button class="heart" id="heart-image" data-drama-id="${drama.dramaNo}">
+                                    <img src="/img/svg_heart-removebg-preview.png" alt="하트 아이콘">
+                                    <span class="span_heart span_fav">찜</span>
+                                </button>
+
+
+                            </div>
+                        </div>
+                        <p th:text="${drama.dramaText}">드라마 설명</p>
+                    </div>
+                </div>
+            </article>
+        </article>
+        <section class="drama_content_ep">
+            <div class="drama_content_title">
+                <div class="content_ep">
+                    <div>
+                        <div class="drama_select_control">
+                            <div class="select_control">
+                                <div class="drama_select">
+                                    <span th:text="${drama.dramaName}">드라마 제목</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="select_ep"></div>
+                    </div>
+                </div>
+                <div class="drama_first_ep">
+                    <div>
+                        <button type="button" class="click_on">첫화부터</button>
+                        <button type="button">최신화부터</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="drama_ep_list" th:if="${isSubscriptionValid != 'None'}">
+                <li class="ep_img">
+                    <form action="/drama/{dramaNo}/uploads/{videoFileName}" method="post">
+                        <div class="ep_img_detail" onclick="playVideo()">
+                            <video id="detailsvideo" controls>
+                                <source th:if="${drama.videoFileName != null}" th:src="@{${drama.videoFileName}}" type="video/mp4">
+                                <p th:if="${drama.videoFileName == null}">비디오 파일이 없습니다.</p>
+                            </video>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </section>
+    </section>
+</main>
+
+<script src="/js/heart.js"></script> <!-- 외부 JS 파일 포함 -->
+
+<script>
+    // 숨겨진 입력 필드에서 값 가져오기
+    const username = document.getElementById('username').value; // ID가 'username'인 요소에서 값을 가져옴
+    const dramaNo = document.getElementById('dramaNo').value; // ID가 'dramaNo'인 요소에서 값을 가져옴
+    const isSubscriptionValid = document.getElementById('isSubscriptionValid').value; // ID가 'isSubscriptionValid'인 요소에서 값을 가져옴
+
+    // 콘솔에 값 출력하기
+    console.log("username:", username); // 콘솔에 'username' 변수의 값을 출력
+    console.log("dramaNo:", dramaNo); // 콘솔에 'dramaNo' 변수의 값을 출력
+    console.log("이용권:", isSubscriptionValid); // 콘솔에 'isSubscriptionValid' 변수의 값을 출력
+
+   function playFirstEpisode() {
+    // 이용권 상태를 확인
+    if (isSubscriptionValid === "None") { // 이용권이 유효하지 않은 경우
+        alert("이용권이 결제가 안되어있습니다."); // 경고 메시지 표시
+        window.location.href = "/mypage"; // '/mypage' 페이지로 리다이렉트
+        return; // 함수 종료
+    }
+
+    // 시청 기록 저장을 위한 Ajax 요청
+    fetch('/watch-history/drama', { // '/watch-history/drama' URL로 POST 요청을 보냄
+        method: 'POST', // HTTP 메서드는 POST
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // 요청의 콘텐츠 타입을 'application/x-www-form-urlencoded'로 설정
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF 토큰을 헤더에 추가
+        },
+        body: new URLSearchParams({ // 요청 본문에 URLSearchParams 객체를 사용하여 데이터를 전송
+            'dramaId': dramaNo // 'dramaId' 필드에 드라마 ID를 전송
+        })
+    })
+    .then(response => { // 응답을 처리
+        if (response.ok) { // 응답이 성공적인 경우
+            console.log("시청 기록이 저장되었습니다."); // 콘솔에 성공 메시지 출력
+        } else { // 응답이 실패한 경우
+            console.error("시청 기록 저장 실패"); // 콘솔에 오류 메시지 출력
+        }
+    })
+    .catch(error => console.error('Error:', error)); // 요청 처리 중 오류가 발생한 경우 콘솔에 오류 메시지 출력
+
+    // 이용권이 유효한 경우 비디오 재생
+    const video = document.getElementById('detailsvideo'); // ID가 'detailsvideo'인 비디오 요소 가져오기
+    if (video) { // 비디오 요소가 존재하는 경우
+        video.scrollIntoView({ behavior: 'smooth', block: 'center' }); // 비디오 요소를 부드럽게 스크롤하여 화면 중앙에 표시
+        video.play(); // 비디오 재생
+        if (video.requestFullscreen) { // 표준 fullscreen API를 지원하는 경우
+            video.requestFullscreen(); // 비디오를 전체 화면 모드로 전환
+        } else if (video.webkitRequestFullscreen) { // Safari 브라우저를 지원하는 경우
+            video.webkitRequestFullscreen(); // 비디오를 전체 화면 모드로 전환
+        } else if (video.msRequestFullscreen) { // IE/Edge 브라우저를 지원하는 경우
+            video.msRequestFullscreen(); // 비디오를 전체 화면 모드로 전환
+        }
+    }
+}
+</script>
+
+
+
+</body>
+</html>

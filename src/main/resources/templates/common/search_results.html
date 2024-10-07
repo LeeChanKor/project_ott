@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/search.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main>
+    <div class="search-results">
+
+        <div th:if="${#lists.isEmpty(dramas) && #lists.isEmpty(movies) && #lists.isEmpty(varieties)}" class="no_search_results">
+            <span th:text="| '${query}' 검색 결과가 없습니다.|"></span>
+        </div>
+
+
+        <div class="category" th:if="${!#lists.isEmpty(dramas)}">
+            <h3>드라마</h3>
+            <div class="results-grid">
+                <div th:each="drama : ${dramas}">
+                    <a th:href="@{'/drama/' + ${drama.dramaNo} + '?query=' + ${query}}"> <!-- 검색어를 추가 -->
+                        <img th:src="${drama.dramaImg}" alt="드라마 이미지">
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="category" th:if="${!#lists.isEmpty(movies)}">
+            <h3>영화</h3>
+            <div class="results-grid">
+                <div th:each="movie : ${movies}">
+                    <a th:href="@{'/movie/' + ${movie.movieNo}}">
+                        <img th:src="${movie.movieImg}" alt="영화 이미지">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category" th:if="${!#lists.isEmpty(varieties)}">
+            <h3>예능</h3>
+            <div class="results-grid">
+                <div th:each="variety : ${varieties}">
+                    <a th:href="@{'/variety/' + ${variety.varietyNo}}">
+                        <img th:src="${variety.varietyImg}" alt="예능 이미지">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+<footer th:replace="common/footer :: footerFragment"></footer>
+<script>
+    window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('query');
+    if (query) {
+        sessionStorage.setItem('searchQuery', query);
+    }
+}
+
+// 뒤로가기 할 때 검색 결과를 불러오기
+document.getElementById("backButton").onclick = function() {
+    const searchQuery = sessionStorage.getItem('searchQuery');
+    if (searchQuery) {
+        window.location.href = "/search_results?query=" + searchQuery; // 세션에서 쿼리 가져와서 페이지 이동
+    }
+}
+
+</script>
+</body>
+</html>

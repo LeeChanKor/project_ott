@@ -1,0 +1,356 @@
+/* 마이페이지  */
+
+.mypage {
+    display: block;
+    margin-top: 90px;
+     margin-left: 51px;
+
+
+}
+
+.mypage .profile {
+    overflow: hidden;
+}
+
+.mypage_profile {
+    background-color: #333;
+    width: 1714px;
+    margin-left: 55px;
+}
+
+.mypage .article {
+    position: relative;
+    display: grid;
+    padding: 78px 60px;
+    grid-template-columns: 10rem minmax(auto, 100%) min-content;
+    column-gap: 31px;
+}
+
+.profile_img {
+    grid-row: 1/3;
+    position:relative;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.profile_img::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+    width: 100%;
+    float: left;
+    box-sizing: inherit;
+}
+.profile_img::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.profile_img picture {
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.profile_img picture img {
+    opacity: 1;
+    transition: opacity 0.1s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile_name {
+    grid-column: 2/3;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    height: 78px;
+}
+
+.profile_name .name {
+    display: flex;
+    align-items: center;
+    font-size: 41px;
+}
+
+.profile_name .name p {
+    font-size: 41px;
+    font-weight: bold;
+    font-stretch: normal;
+    line-height: 1.31;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+.profile_name button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.profile_name button svg {
+    width: 61px;
+    height: auto;
+    opacity: 0.7;
+    transition: opacity 0.1s;
+}
+
+
+.profile_name .profile_change {
+    padding: 7px 12px;
+    font-size: 15.6px;
+    text-align: left;
+    color: #fff;
+    line-height: 1.4;
+    border-radius: 3px;
+    white-space: nowrap;
+    border: 1px solid #4d4d4d;
+    opacity: 0.7;
+    transition: opacity 0.1s;
+    margin-left: 16px;
+}
+
+.info_modify {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    height: 78px;
+}
+
+.info_modify .modify {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 추가 */
+    height: 100%; /* 추가 */
+}
+
+.info_modify .modify a {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #fff;
+    white-space: nowrap;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none; /* 추가 */
+    flex-direction: row; /* 추가: 가로 정렬 */
+}
+
+
+.user_ticket {
+    height: 78px;
+}
+
+.user_ticket .ticket {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.user_ticket .ticket_sort {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    text-align: left;
+    white-space: nowrap;
+    color: #a3a3a3;
+    margin-top: 10px;
+}
+
+.user_ticket .ticket_sort svg {
+    width: 31px;
+    height: auto;
+}
+
+.user_ticket .ticket_sort span {
+    overflow: hidden;
+    line-height: 23px;
+    padding-left: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.user_ticket .ticket_sort  a>span {
+    padding-left: 5px;
+    font-size: 20px;
+    text-align: left;
+    color: #fff;
+}
+
+.user_ticket select {
+   outline: none;
+   height: 37px;
+   cursor: pointer;
+   font-size: 14px;
+   border-radius: 2px;
+}
+
+.user_ticket button {
+  background-color: #FFC107;
+  color: #fff;
+  border: 1px solid #FFC107;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 50px;
+  height: 35px;
+  position: absolute;
+  top: -7px;
+  margin-left: 9px;
+
+
+
+
+}
+
+/*이용중인 이용권*/
+.inuser_ticket {
+    display: flex;
+    align-items: center;
+}
+.inuser_ticket .inuse {
+    color: #a3a3a3;
+    font-size: 23px;
+}
+
+.inuser_mem {
+    margin-left: 25px;
+    font-size: 23px;
+}
+
+/* 마이페이지 시청기록 */
+.my_history, .my_program, .my_movie {
+    margin-left: 55px;
+    margin-top: 20px;
+}
+
+.my_history h1 {
+    font-size: 24px;
+}
+.my_history .watch_txt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 104px;
+}
+
+.watch_txt h3 {
+    font-size: 15px;
+    color: #a5a5a5;
+    font-weight: 500;
+    cursor: pointer;
+}
+.my_history .watch_history {
+    margin-top: 20px;
+}
+
+.my_history h2 {
+    font-size: 14px;
+}
+
+.my_history .watch img {
+   width: 276px;
+   height: 360px;
+   border-radius: 3px;
+   cursor: pointer;
+}
+.my_history .watch img:hover {
+    transform: translateY(-2%);
+}
+
+.my_history ul {
+    display: flex;
+
+}
+
+.my_history li {
+    margin-right: 10px;
+}
+
+.my_program .fav_program h1 {
+    font-size: 24px;
+}
+.plus_series h3 {
+    font-size: 15px;
+    color: #a5a5a5;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.fav_program .plus_series {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 104px;
+}
+
+
+.my_program .fav_program ul {
+    display: flex;
+}
+.my_program .fav_program li {
+    margin-right: 10px;
+}
+
+.my_program .fav_program img {
+    width: 276px;
+    height: 360px;
+    cursor: pointer;
+
+}
+
+.my_program .fav_program img:hover {
+    transform: translateY(-2%);
+}
+.fav_series {
+    margin-top: 20px;
+}
+
+.plus_movie h3 {
+    font-size: 15px;
+    color: #a5a5a5;
+    font-weight: 500;
+    cursor: pointer;
+}
+.fav_movie .plus_movie {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 104px;
+}
+.my_movie .fav_movie h1 {
+    font-size: 24px;
+}
+.favorite_movie {
+    margin-top: 20px;
+}
+
+.my_movie .fav_movie ul {
+    display: flex;
+}
+
+.my_movie .fav_movie li {
+    margin-right: 10px;
+}
+
+.my_movie .fav_movie img {
+    width: 276px;
+    height: 360px;
+    cursor: pointer;
+}
+
+.my_movie .fav_movie img:hover {
+    transform: translateY(-2%);
+}

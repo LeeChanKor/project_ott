@@ -1,0 +1,51 @@
+#drama_select {
+    display: flex;
+    align-items: center;
+    margin-left: 108px;
+}
+
+#drama_select h3{
+    margin-right: 20px;
+    font-size: 40px;
+}
+
+#drama_select button {
+    background-color: #FFC107;
+    border: 1px solid #FFC107;
+    color: #fff;
+    height: 30px;
+    width: 50px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#drama_select select {
+   height: 30px;
+   outline: none;
+   cursor: pointer;
+   background-color: #4e4e4e;
+   color: #fff;
+   border-radius: 3px;
+   border: 1px solid #4e4e4e;
+   font-size: 15px;
+}
+
+.drama_series {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    margin-left: 108px;
+}
+.drama_series .series_content {
+    margin-top: 10px;
+}
+.drama_series .series_content img {
+    width: 232px;
+    height: 356px;
+    border-radius: 7px;
+    margin-right: 10px;
+}
+
+.drama_series .series_content img:hover {
+    transform: translateY(-2%);
+}

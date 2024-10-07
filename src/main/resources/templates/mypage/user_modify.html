@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main class="user_modify">
+    <div class="user_modify_layout">
+        <form action="/user/update-password" method="post">
+            <fieldset>
+                <div class="user_modify_box">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>아이디</th>
+                            <td>
+                                <p th:text="${username}"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이메일</th>
+                            <td>
+                                <p th:text="${email}"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>현재 비밀번호</th>
+                            <td>
+                                <input type="password" name="current_password" placeholder="현재 비밀번호를 입력하세요.">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>새 비밀번호</th>
+                            <td>
+                                <input type="password" name="new_password" placeholder="새 비밀번호를 입력하세요.">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>새 비밀번호 확인</th>
+                            <td>
+                                <input type="password" name="confirm_new_password" placeholder="비밀번호를 한번 더 입력해주세요.">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${error}" class="error-message">
+                        <p th:text="${error}"></p>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="user_modify_cancel">
+                            <button type="reset">초기화</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="user_modify_cancel">
+                            <button type="button" id="goBackButton">뒤로가기</button>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="user_modify_btn">
+                            <button type="submit">비밀번호 수정</button>
+                        </div>
+                    </li>
+                </ul>
+
+            </fieldset>
+        </form>
+        <div class="user_memberships">
+            <p class="user_my_membership">이용권</p>
+            <div class="membership_delete">
+                <p class="my_membership" th:text="${membership}"></p>
+                <form action="/cancel-membership" method="post" id="cancelMembershipForm">
+                    <input type="hidden" name="userId" th:value="${user.id}"/> <!-- 사용자 ID 추가 -->
+                    <button type="submit">해지</button>
+                    <!-- CSRF 토큰 포함 -->
+                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="user_withdraw">
+        <form id="withdrawForm" action="/user/withdraw" method="post">
+            <input type="hidden" name="userId" th:value="${user.id}"/>
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/> <!-- CSRF 토큰 포함 -->
+            <button type="submit" id="withdrawBtn">회원탈퇴</button>
+        </form>
+    </div>
+</main>
+
+<script>
+
+     document.addEventListener("DOMContentLoaded", function() {
+         // 회원 탈퇴 버튼 클릭 시
+         document.getElementById("withdrawBtn").addEventListener("click", function(event) {
+             event.preventDefault(); // 기본 동작 방지
+
+             var confirmation = confirm("회원 탈퇴하시겠습니까?");
+             if (confirmation) {
+                 // 회원 탈퇴를 처리하는 폼을 제출
+                 var withdrawForm = document.getElementById("withdrawForm");
+
+                 // CSRF 토큰 가져오기
+                 var csrfToken = document.querySelector('input[name="_csrf"]').value;
+
+                 // AJAX 요청을 통해 회원 탈퇴 처리
+                 var xhr = new XMLHttpRequest();
+                 xhr.open("POST", withdrawForm.action, true);
+                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                 xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken); // CSRF 토큰 헤더에 추가
+
+                 xhr.onload = function() {
+                     console.log(xhr.responseText); // 서버 응답 확인
+                     if (xhr.status === 200) {
+                         alert("회원 탈퇴가 완료되었습니다.");
+                         window.location.href = "/"; // 성공 후 리디렉션
+                     } else {
+                         alert("회원 탈퇴 처리 중 오류가 발생했습니다.");
+                     }
+                 };
+
+                 xhr.onerror = function() {
+                     alert("서버에 연결할 수 없습니다. 네트워크 상태를 확인해 주세요.");
+                 };
+
+                 // CSRF 토큰과 userId 값을 전송
+                 var formData = new URLSearchParams(new FormData(withdrawForm)).toString();
+                 xhr.send(formData);
+             }
+         });
+
+         // 비밀번호 변경 폼 제출 시 AJAX 요청 처리
+         document.querySelector('form[action="/user/update-password"]').addEventListener('submit', function(event) {
+             event.preventDefault(); // 폼의 기본 제출 방지
+
+             var currentPassword = document.querySelector('input[name="current_password"]').value;
+             var newPassword = document.querySelector('input[name="new_password"]').value;
+             var confirmNewPassword = document.querySelector('input[name="confirm_new_password"]').value;
+
+             if (!currentPassword || !newPassword || !confirmNewPassword) {
+                 alert("모든 비밀번호 필드를 입력해주세요.");
+                 return;
+             }
+
+             if (newPassword.length < 4) {
+                 alert("새 비밀번호는 4자리 이상이어야 합니다.");
+                 return;
+             }
+
+             if (newPassword !== confirmNewPassword) {
+                 alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+                 return;
+             }
+
+             var xhr = new XMLHttpRequest();
+             xhr.open("POST", "/user/update-password", true);
+             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+             xhr.onload = function() {
+                 console.log(xhr.responseText); // 서버 응답 확인
+                 if (xhr.status === 200) {
+                     alert("비밀번호가 변경되었습니다.");
+                     window.location.href = "/mypage"; // 성공 후 리디렉션
+                 } else if (xhr.status === 400 || xhr.status === 500) {
+                     try {
+                         var response = JSON.parse(xhr.responseText);
+                         alert(response.error || "비밀번호 변경 중 오류가 발생했습니다.");
+                     } catch (e) {
+                         alert("응답을 처리하는 중 오류가 발생했습니다.");
+                     }
+                 } else {
+                     alert("비밀번호 변경 중 오류가 발생했습니다.");
+                 }
+             };
+             xhr.onerror = function() {
+                 alert("서버에 연결할 수 없습니다. 네트워크 상태를 확인해 주세요.");
+             };
+
+             xhr.send(
+                 "current_password=" + encodeURIComponent(currentPassword) +
+                 "&new_password=" + encodeURIComponent(newPassword) +
+                 "&confirm_new_password=" + encodeURIComponent(confirmNewPassword)
+             );
+         });
+
+         // 이용권 해지 버튼 클릭 시 확인
+         document.getElementById("cancelMembershipForm").addEventListener("submit", function(event) {
+             if (!confirm("이용권을 해지하시겠습니까?")) {
+                 event.preventDefault(); // 폼 제출 방지
+             } else {
+                 alert("이용권이 해지되었습니다.");
+             }
+         });
+
+         // 뒤로가기 버튼 클릭 시 이전 페이지로 이동
+         document.getElementById("goBackButton").addEventListener("click", function() {
+             window.history.back();
+         });
+     });
+</script>
+
+
+
+</body>
+</html>

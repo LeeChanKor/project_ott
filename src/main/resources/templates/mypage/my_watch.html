@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>시청 내역</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage/my_watch.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="edit-mode">
+<header th:replace="common/header :: headerFragment"></header>
+<main class="my_watch">
+    <section class="my_watch_header">
+        <h1>시청 내역</h1>
+    </section>
+
+    <section class="my_watch_list">
+        <div class="my_watch_delete">
+            <div id="editOptions" style="display: none;">
+                <button type="button" id="selectAllButton">전체 선택</button>
+                <span>|</span>
+                <button type="button" id="deleteButton">삭제</button>
+            </div>
+            <button type="button" id="editButton">편집</button>
+        </div>
+        <ul id="watchList">
+            <li th:each="history : ${watchHistoryList}">
+                <div class="image-container">
+                    <input type="checkbox" class="delete-checkbox" id="checkbox-${history.id}" style="display:none;" th:value="${history.id}">
+                    <a th:href="${history.drama != null ? '/drama/' + history.drama.dramaNo :
+            (history.movie != null ? '/movie/' + history.movie.movieNo :
+            (history.variety != null ? '/variety/' + history.variety.varietyNo : '#'))}">
+                        <img th:src="${history.drama != null ? history.drama.dramaImg :
+                (history.movie != null ? history.movie.movieImg :
+                (history.variety != null ? history.variety.varietyImg : 'default-image.jpg'))}"
+                             alt="콘텐츠 이미지">
+                    </a>
+                </div>
+            </li>
+
+
+
+        </ul>
+    </section>
+</main>
+<footer th:replace="common/footer :: footerFragment"></footer>
+
+<script>
+    $(document).ready(function () {
+     let isAllSelected = false;  // 전체 선택 여부를 추적
+
+  // 편집/완료 버튼 클릭 시
+    $('#editButton').on('click', function () {
+        if ($(this).text() === '편집') {
+            $('#editOptions').show();  // 전체 선택, 삭제 버튼 보이기
+            $('.delete-checkbox').css('display', 'block');  // 체크박스 보이기
+            $(this).text('완료');  // 버튼 텍스트 변경
+        } else {
+            $('#editOptions').hide();  // 전체 선택, 삭제 버튼 숨기기
+            $('.delete-checkbox').css('display', 'none');  // 체크박스 숨기기
+            $(this).text('편집');  // 버튼 텍스트 변경
+        }
+    });
+
+
+     // 전체 선택 버튼 클릭 시
+     $('#selectAllButton').on('click', function () {
+         if (isAllSelected) {
+             // 전체 해제
+             $('.delete-checkbox').prop('checked', false);
+             $(this).text('전체 선택');  // 버튼 텍스트 변경
+         } else {
+             // 전체 선택
+             $('.delete-checkbox').prop('checked', true);
+             $(this).text('전체 해제');  // 버튼 텍스트 변경
+         }
+         isAllSelected = !isAllSelected;  // 상태 반전
+     });
+
+     // 삭제 버튼 클릭 시
+     $('#deleteButton').on('click', function () {
+         let selectedItems = $('.delete-checkbox:checked');  // 선택된 체크박스들
+         if (selectedItems.length === 0) {
+             alert('삭제할 항목을 선택하세요.');
+             return;
+         }
+
+         if (confirm('삭제하시겠습니까?')) {
+             let idsToDelete = [];
+             selectedItems.each(function () {
+                 idsToDelete.push($(this).val());
+             });
+
+             // 서버로 삭제 요청 (AJAX 사용)
+             $.ajax({
+                 url: '/watch-history/delete',
+                 method: 'POST',
+                 contentType: 'application/json',
+                 data: JSON.stringify(idsToDelete),
+                 success: function () {
+                     alert('삭제되었습니다.');
+                     window.location.reload();  // 페이지 새로고침
+                 },
+                 error: function () {
+                     alert('삭제 중 오류가 발생했습니다.');
+                 }
+             });
+         }
+     });
+
+     // 편집 모드일 때 이미지를 클릭해도 상세 페이지로 이동하지 않도록 설정
+     $('.image-container a').on('click', function (event) {
+         if ($('#editButton').text() === '완료') {
+             event.preventDefault();  // 편집 모드일 때는 상세 페이지로 이동하지 않음
+             const checkbox = $(this).closest('.image-container').find('.delete-checkbox');
+             checkbox.prop('checked', !checkbox.prop('checked'));  // 체크박스 상태를 반전
+         }
+     });
+
+     // 체크박스 클릭 시 이벤트 전파 방지 (체크박스 클릭 시 이미지 클릭 방지)
+     $('.delete-checkbox').on('click', function (event) {
+         event.stopPropagation();  // 체크박스 클릭 시 이미지 클릭 이벤트가 전달되지 않도록 전파 방지
+     });
+ });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayVista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main th:fragment="content" class="ott_main">
+    <section class="ott_slide">
+        <ul class="slide-list main-slide-list">
+            <li><img th:src="@{/img/아는 형님 포스터.jpg}" alt="Slide 1"></li>
+            <li><img th:src="@{/img/메인 배너3.jpg}" alt="Slide 2"></li>
+            <li><img th:src="@{/img/눈물의 여왕 가로.jpg}" alt="Slide 3"></li>
+        </ul>
+        <ul class="pagination"></ul>
+        <div class="arrows">
+            <button class="left-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+    <section class="new_series">
+        <h3>드라마</h3>
+        <div class="nseries">
+            <div class="slider">
+                <button class="arrow left-arrow" id="prevBtn">&#10094;</button>
+                <div class="slide-container">
+                    <div class="drama-slide-list">
+                        <div class="slide-item" th:each="drama : ${dramas}">
+                            <div class="series_box">
+                                <a th:href="@{'/drama/' + ${drama.dramaNo}}">
+                                    <div>
+                                        <img th:if="${drama.dramaImg != null}"
+                                             th:src="@{${drama.dramaImg}}"
+                                             th:alt="${drama.dramaName}">
+                                        <p th:if="${drama.dramaImg == null}">사진이 없습니다.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="arrow right-arrow" id="nextBtn">&#10095;</button>
+            </div>
+
+            <ul class="pagination"></ul>
+        </div>
+    </section>
+    <!-- 새로 올라온 영화 -->
+    <section class="new_movie">
+        <h3>영화</h3>
+        <div class="nseries">
+            <div class="slider">
+                <button class="arrow left-arrow" id="prevBtn2">&#10094;</button>
+                <div class="slide-container">
+                    <div class="movie-slide-list">
+                        <div class="slide-item" th:each="movie : ${movies}">
+                            <div class="series_box">
+                                <a th:href="@{'/movie/' + ${movie.movieNo}}">
+                                    <div>
+                                        <img th:if="${movie.movieImg != null}"
+                                             th:src="@{${movie.movieImg}}"
+                                             th:alt="${movie.movieName}">
+                                        <p th:if="${movie.movieImg == null}">사진이 없습니다.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="arrow right-arrow" id="nextBtn2">&#10095;</button>
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="new_variety">
+        <h3>예능</h3>
+        <div class="nseries">
+            <div class="slider">
+                <button class="arrow left-arrow" id="prevBtn3">&#10094;</button>
+                <div class="slide-container">
+                    <div class="variety-slide-list">
+                        <div class="variety_slide-item" th:each="variety : ${varieties}">
+                            <div class="series_box">
+                                <a th:href="@{'/variety/' + ${variety.varietyNo}}">
+                                    <div>
+                                        <img th:if="${variety.varietyImg != null}"
+                                             th:src="@{${variety.varietyImg}}"
+                                             th:alt="${variety.varietyName}">
+                                        <p th:if="${variety.varietyImg == null}">사진이 없습니다.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="arrow right-arrow" id="nextBtn3">&#10095;</button>
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="common/footer :: footerFragment"></footer>
+<button id="backToTop" class="back-to-top"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script th:src="@{/js/motion.js}"></script>
+<script th:src="@{/js/slide.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <style>
+        .error {
+            color: red;
+            display: flex;
+            margin-top: 8px;
+        }
+        .alert {
+            color: red;
+            display: none; /* 기본적으로 숨김 */
+            text-align: center;
+            margin-top: 23px;
+        }
+
+    </style>
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<div layout:fragment="content" class="container my-3 login_form">
+    <h1>로그인</h1>
+    <div class="login_form_box">
+        <form id="loginForm" th:action="@{/user/login}" method="post">
+            <div class="user_login user_id">
+                <input type="text" name="username" id="username" class="form-control" placeholder="아이디">
+                <span class="error" id="usernameError"></span>
+            </div>
+            <div class="user_login user_pass">
+                <input type="password" name="password" id="password" class="form-control" placeholder="비밀번호">
+                <span class="error" id="passwordError"></span>
+            </div>
+            <div class="login_button">
+                <button type="submit" class="btn btn-primary login_btn">로그인</button>
+                <button type="button" class="sign_up_btn" onclick="window.location.href='/user/signup'">회원가입</button>
+            </div>
+            <div id="serverError" class="alert alert-danger">
+                로그인 실패. 사용자ID 또는 비밀번호를 확인해 주세요.
+            </div>
+        </form>
+    </div>
+</div>
+<!-- 사용자 ID를 데이터 속성으로 포함시키기 -->
+<div id="user-id" data-user-id="${userId}"></div>
+<script th:src="@{/js/login.js}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 로그인 실패 시 서버에서 전달된 파라미터를 확인합니다
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            document.getElementById("serverError").style.display = "block";
+        }
+
+        // 회원 탈퇴 후 로그인 페이지로 온 경우 모든 링크 클릭 방지
+        if (urlParams.get('withdrawn') === 'true') {
+            // 모든 링크 클릭 방지
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // 링크 클릭 방지
+                    alert("회원 탈퇴 후에는 이 페이지로 이동할 수 없습니다.");
+                });
+            });
+
+            // 현재 URL을 히스토리 스택에 추가하지 않고 변경
+            history.replaceState(null, '', window.location.href);
+        }
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // 기본 폼 제출 동작 방지
+
+        var formData = new FormData(this);
+
+        fetch(this.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok && response.redirected) {
+                // 성공적으로 로그인 처리된 경우
+                alert("로그인 되었습니다.");
+                window.location.href = response.url;  // 메인 페이지로 이동
+            } else if (response.status === 401) {
+                // 로그인 실패 시
+                document.getElementById("serverError").style.display = "block";
+            } else {
+                // 다른 모든 경우에 대해서도 에러로 간주
+                document.getElementById("serverError").style.display = "block";
+            }
+        })
+        .catch(error => {
+            console.error('로그인 요청 중 오류 발생:', error);
+            document.getElementById("serverError").style.display = "block";
+        });
+    });
+</script>
+
+</body>
+</html>

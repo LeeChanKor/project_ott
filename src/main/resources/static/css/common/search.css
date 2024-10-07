@@ -1,0 +1,41 @@
+
+.search-results {
+    margin-top: 154px;
+    margin-left: 114px;
+
+}
+
+.search-results .results-grid{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.search-results .category {
+    margin-top: 20px;
+}
+
+.search-results .results-grid img {
+    width: 240px;
+    height: 360px;
+    margin-right: 10px;
+}
+
+.search-results h3 {
+    font-size: 26px;
+}
+
+.no_search_results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.no_search_results span {
+
+    font-size: 39px;
+    font-weight: bold;
+    white-space: nowrap;
+
+}

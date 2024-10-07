@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}">
+</head>
+<body>
+<div class="admin_header">
+    <div>
+        <div class="logo_name">
+            <a th:href="@{/main}">
+                <h1>PlayVista</h1>
+            </a>
+        </div>
+    </div>
+</div>
+<main class="admin_page">
+    <div class="admin_page_bar">
+        <div class="bar">
+            <a th:href="@{/admin}" class="admin_home">관리자 홈</a>
+            <div class="admin_user">
+                <p>회원 관리</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_user_list}">회원 목록</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="admin_reg">
+                <p>등록</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin/dramaList}">드라마</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/varietyList}">예능</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/MovieList}">영화</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="admin_company">
+                <p>관리자</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_list}">관리자 목록</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="admin_main">
+        <h1>관리자 페이지</h1>
+        <div class="admin_list">
+            <div class="admin_user_list">
+                <div class="au">
+                    <h3>회원 차트</h3>
+                    <a th:href="@{/admin_user_list}">
+                        <h4>더보기</h4>
+                    </a>
+
+                </div>
+                <hr class="hr">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>아이디</th>
+                            <th>가입일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="SiteUser : ${latestUsers}">
+                        <td th:text="${SiteUser.id}"></td>
+                        <td>
+                            <p th:text="${SiteUser.username}"></p>
+                        </td>
+                        <td th:text="${#dates.format(SiteUser.registerDate, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin_drama_list">
+                <div class="au">
+                    <h3>드라마 차트</h3>
+                    <a th:href="@{/admin/dramaList}">
+                        <h4>더보기</h4>
+                    </a>
+                </div>
+                <hr class="hr">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>등록일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="drama : ${latestDramas}">
+                        <td th:text="${drama.dramaNo}"></td>
+                        <td>
+                            <a th:href="@{/admin/admin_drama_details/{dramaNo}(dramaNo=${drama.dramaNo})}" th:text="${drama.dramaName}"></a>
+                        </td>
+                        <td th:text="${#dates.format(drama.registerDate, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin_variety_list">
+                <div class="au">
+                    <h3>예능 차트</h3>
+                    <a th:href="@{/admin/varietyList}">
+                        <h4>더보기</h4>
+                    </a>
+                </div>
+                <hr class="hr">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>등록일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="variety : ${latestVariety}">
+                        <td th:text="${variety.varietyNo}"></td>
+                        <td>
+                            <a th:href="@{/admin/admin_variety_details/{varietyNo}(varietyNo=${variety.varietyNo})}" th:text="${variety.varietyName}"></a>
+                        </td>
+                        <td th:text="${#dates.format(variety.registerDate, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin_movie_list">
+                <div class="au">
+                    <h3>영화 차트</h3>
+                    <a th:href="@{/admin/MovieList}">
+                        <h4>더보기</h4>
+                    </a>
+                </div>
+                <hr class="hr">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>등록일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="movie : ${latestMovies}">
+                        <td th:text="${movie.movieNo}"></td>
+                        <td>
+                            <a th:href="@{/admin/admin_movie_details/{movieNo}(movieNo=${movie.movieNo})}" th:text="${movie.movieName}"></a>
+                        </td>
+                        <td th:text="${#dates.format(movie.registerDate, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<script th:src="@{/js/motion.js}"></script>
+</body>
+</html>

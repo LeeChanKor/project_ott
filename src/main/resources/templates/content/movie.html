@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayVista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/content/movie.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+
+<main class="movie">
+    <section class="ott_slide">
+        <ul class="slide-list">
+            <li><a th:href="@{'/movie/' + 2008}"><img src="/img/movie/국내/모가디슈(가로).jpg"alt="Slide 1"></a></li>
+            <li><a th:href="@{'/movie/' + 2005}"><img src="/img/movie/해외/해리포터와 마법사의 돌(가로).jpg" alt="Slide 2"></a></li>
+            <li><a th:href="@{'/movie/' + 2004}"><img src="/img/movie/국내/비상선언(가로).jpg" alt="Slide 3"></a></li>
+        </ul>
+        <ul class="pagination"></ul>
+        <div class="arrows">
+            <button class="left-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section>
+        <div id="movie_select">
+            <h3>영화</h3>
+            <form action="/movie/filter" method="GET">
+                <select name="category" id="movieCategory">
+                    <option value="전체">전체</option>
+                    <option value="국내">국내</option>
+                    <option value="해외">해외</option>
+                </select>
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="movie_ch1">
+        <div class="movie_ch1_list">
+            <div class="movie_series">
+                <div class="movie_content" th:each="movie : ${movies}"> <!-- movies 리스트를 반복 -->
+                    <a th:href="@{'/movie/' + ${movie.movieNo}}">
+                        <div>
+                            <img th:src="@{${movie.movieImg} != null ? ${movie.movieImg} : '/img/default-image.jpg'}"
+                                 alt="${movie.movieName} 이미지">
+                            <p th:if="${movie.movieImg == null}">사진이 없습니다.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="common/footer :: footerFragment"></footer>
+<button id="backToTop" class="back-to-top"><i class="fa-solid fa-chevron-up"></i></button>
+<script th:src="@{/js/motion.js}"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+server:
+  port: 8081
+  tomcat:
+    connection-timeout: 20000
+    max-keep-alive-requests: 1
+    compression:
+      enabled: false
+
+spring:
+  application:
+    name: video
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/ott
+    username: root
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+
+  logging:
+    level:
+      org:
+        hibernate:
+          orm:
+            jdbc:
+              bind: TRACE
+              extract: TRACE
+
+  web:
+    resources:
+      static-locations: file:///D:/test/uploads/, classpath:/static/, classpath:/public/, classpath:/img/
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+    endpoint:
+      health:
+        show-details: always
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+
+file:
+  upload-dir: D:/test/uploads

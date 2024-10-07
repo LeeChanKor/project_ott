@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>예능 수정 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin_register.css}">
+</head>
+<body>
+<div class="admin_header">
+    <div>
+        <div class="logo_name">
+            <a th:href="@{/main}">
+                <h1>PlayVista</h1>
+            </a>
+        </div>
+    </div>
+</div>
+<main class="admin_variety_register">
+    <div class="admin_page_bar">
+        <div class="bar">
+            <a th:href="@{/admin}" class="admin_home">관리자 홈</a>
+            <div class="admin_user">
+                <p>회원 관리</p>
+                <ul>
+                    <li><a th:href="@{/admin_user_list}">회원 목록</a></li>
+                </ul>
+            </div>
+            <div class="admin_reg">
+                <p>등록</p>
+                <ul>
+                    <li><a th:href="@{/admin/dramaList}">드라마</a></li>
+                    <li><a th:href="@{/admin/varietyList}">예능</a></li>
+                    <li><a th:href="@{/admin/MovieList}">영화</a></li>
+                </ul>
+            </div>
+            <div class="admin_company">
+                <p>관리자</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_list}">관리자 목록</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 예능 수정 -->
+    <div class="variety_register_form">
+        <h1>예능 수정</h1>
+        <div class="variety_register_form_table">
+            <!-- 영상 업로드 폼 -->
+            <form method="POST" enctype="multipart/form-data" th:action="@{/admin/variety_modify/{varietyNo}(varietyNo=${variety.varietyNo})}">
+                <input type="hidden" name="varietyNo" th:value="${variety.varietyNo}">
+                <table>
+                    <tr>
+                        <th>영상</th>
+                        <td>
+                            <input type="file" name="videoFile" accept="video/*" id="videoInput">
+                            <br>
+                            <video id="videoPreview" controls th:if="${variety.videoFileName != null}" th:src="@{'/uploads/' + ${variety.videoFileName}}"></video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td><input type="text" name="title" id="titleInput" th:value="${variety.varietyName}" required></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td><textarea name="description" id="descriptionInput" cols="30" rows="10" required th:text="${variety.varietyText}"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>예능 사진</th>
+                        <td>
+                            <input type="file" name="photoFile" id="fileInput">
+                            <br>
+                            <img th:if="${variety.varietyImg != null}" th:src="@{${variety.varietyImg}}" alt="예능 이미지" style="max-width: 200px;">
+                        </td>
+                    </tr>
+                </table>
+                <button type="submit">예능 수정</button>
+            </form>
+
+            <p th:text="${message}" th:if="${message != null}"></p>
+
+
+        </div>
+    </div>
+</main>
+<script th:src="@{/js/video.js}"></script>
+</body>
+</html>

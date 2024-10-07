@@ -1,0 +1,77 @@
+/* 회원 가입 */
+
+.sign_up {
+    width: 100%;
+    overflow: hidden;
+}
+
+.sign_logo {
+    position: fixed;
+    padding: 20px 94px;
+}
+
+.sign_box {
+    padding: 20px;
+}
+
+.sign_up_box {
+    width: 560px;
+    position: relative;
+    margin: 80px auto;
+    background: #252525;
+    height: 566px;
+}
+
+.sign_up_form h4 {
+   text-align: center;
+   font-size: 32px;
+   margin-bottom: 11px;
+   padding-top: 20px;
+}
+
+.user_login_box .user_id,
+ .user_pass .user_password,
+ .user_pass .pass_check,
+ .user_email .email{
+    font-size: 16px;
+    color: #a5a5a5;
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.user_pass,
+.user_email {
+    margin-top: 15px;
+}
+
+
+
+.user_login_box input[type="text"],
+.user_pass input[type="password"],
+.user_email input[type="email"]{
+     padding: 0 90px 0 20px;
+     width: 100%;
+     font-size: 15px;
+     letter-spacing: -0.9px;
+     height: 53px;
+     color: #fff;
+     background-color: #2f2f2f;
+     border: none;
+     outline: none;
+}
+
+.sign_box button {
+    background-color: #FFC107;
+    color: #fff;
+    width: 100px;
+    height: 50px;
+    margin-top: 30px;
+    border: 1px solid #FFC107;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 214px;
+
+}
+
+

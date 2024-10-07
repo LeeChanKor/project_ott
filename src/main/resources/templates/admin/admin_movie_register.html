@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>영화 등록 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin_register.css}">
+</head>
+<body>
+<div class="admin_header">
+    <div>
+        <div class="logo_name">
+            <a th:href="@{/main}">
+                <h1>PlayVista</h1>
+            </a>
+        </div>
+    </div>
+</div>
+<main class="admin_movie_register">
+    <div class="admin_page_bar">
+        <div class="bar">
+            <a th:href="@{/admin}" class="admin_home">관리자 홈</a>
+            <div class="admin_user">
+                <p>회원 관리</p>
+                <ul>
+                    <li><a href="#">회원 목록</a></li>
+                </ul>
+            </div>
+            <div class="admin_reg">
+                <p>등록</p>
+                <ul>
+                    <li><a th:href="@{/admin/dramaList}">드라마</a></li>
+                    <li><a th:href="@{/admin/varietyList}">예능</a></li>
+                    <li><a th:href="@{/admin/MovieList}">영화</a></li>
+
+                </ul>
+            </div>
+            <div class="admin_company">
+                <p>관리자</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_list}">관리자 목록</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 영화 등록 -->
+    <div class="movie_register_form">
+        <h1>영화 등록</h1>
+        <div class="movie_register_form_table">
+            <form method="POST" enctype="multipart/form-data" action="/uploadMovieVideo">
+                <table>
+                    <tr>
+                        <th>영상</th>
+                        <td>
+                            <input type="file" name="movie_player" accept="video/*" id="videoInput">
+                            <br>
+                            <video id="videoPreview" controls></video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td><input type="text" name="movie_title" id="titleInput"></td>
+                    </tr>
+                    <tr>
+                        <th>장르</th>
+                        <td><input type="text" name="movie_country" id="genreInput"></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td><textarea id="descriptionInput" name="movie_content" cols="30" rows="10"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>영화 사진</th>
+                        <td><input type="file" name="movie_photo" id="fileInput"></td>
+                    </tr>
+                </table>
+                <button type="submit">영화 등록</button>
+            </form>
+        </div>
+    </div>
+</main>
+<script th:src="@{/js/video.js}"></script>
+
+</body>
+</html>

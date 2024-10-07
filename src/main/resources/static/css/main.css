@@ -1,0 +1,121 @@
+
+.new_series {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    width: 1691px;
+    overflow: hidden;
+
+}
+
+
+.new_series, .new_movie, .new_variety {
+    margin-left: 103px;
+}
+
+.new_series h3 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.div_series {
+    display: flex;
+}
+
+
+.new_series .series_box a {
+    position: relative;
+    display: block;
+}
+
+.new_series .series_box img {
+    width: 236.5px;
+    height: 356px;
+    border-radius: 7px;
+}
+
+.new_series .series_box img:hover {
+    transform: translateY(-2%);
+}
+
+.new_country_series h3 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.new_country_series .series_box {
+    margin-right: 10px;
+}
+
+.new_country_series .series_box img {
+    width: 236.5px;
+    height: 356px;
+    border-radius: 7px;
+}
+
+.new_country_series .series_box img:hover {
+    transform: translateY(-2%);
+}
+
+.new_movie {
+    position: relative;
+    width: 1691px;
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.new_movie h3 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.new_movie img {
+    width: 236.5px;
+    height: 356px;
+    border-radius: 7px;
+}
+
+.new_movie img:hover {
+    transform: translateY(-2%);
+}
+
+.new_movie .series_box {
+    margin-right: 10px;
+}
+
+/*메인 예능*/
+
+.new_variety {
+    position: relative;
+    width: 1691px;
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.new_variety h3 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.new_variety img {
+    width: 236.5px;
+    height: 356px;
+    border-radius: 7px;
+}
+
+.new_variety img:hover {
+    transform: translateY(-2%);
+}
+
+.new_variety .series_box {
+    margin-right: 5px;
+}
+
+
+
+
+
+

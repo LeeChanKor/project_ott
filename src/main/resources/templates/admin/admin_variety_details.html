@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>예능 상세 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/content_details.css}">
+</head>
+<body>
+<div class="admin_header">
+    <div>
+        <div class="logo_name">
+            <a th:href="@{/main}">
+                <h1>PlayVista</h1>
+            </a>
+        </div>
+    </div>
+</div>
+<main class="admin_variety_details">
+    <div class="admin_page_bar">
+        <div class="bar">
+            <a th:href="@{/admin}" class="admin_home">관리자 홈</a>
+            <div class="admin_user">
+                <p>회원 관리</p>
+                <ul>
+                    <li><a th:href="@{/admin_user_list}">회원 목록</a></li>
+                </ul>
+            </div>
+            <div class="admin_reg">
+                <p>등록</p>
+                <ul>
+                    <li><a th:href="@{/admin/dramaList}">드라마</a></li>
+                    <li><a th:href="@{/admin/varietyList}">예능</a></li>
+                    <li><a th:href="@{/admin/MovieList}">영화</a></li>
+                </ul>
+            </div>
+            <div class="admin_company">
+                <p>관리자</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_list}">관리자 목록</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 예능 상세 페이지 -->
+    <div class="variety_details_form">
+        <h1>예능 상세페이지</h1>
+        <div class="variety_details_form_table">
+            <form id="varietyDetailsForm" th:action="@{/admin/variety_delete/{varietyNo}(varietyNo=${variety.varietyNo})}" method="post">
+                <table>
+                    <tr>
+                        <th>영상</th>
+                        <td>
+                            <video id="detailsvideo" controls>
+                                <source th:if="${variety.videoFileName != null}" th:src="@{${variety.videoFileName}}" type="video/mp4">
+                                <p th:if="${variety.videoFileName == null}">비디오 파일이 없습니다.</p>
+                            </video>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td th:text="${variety.varietyName}">예능 제목</td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td><textarea id="detailsinfo" cols="30" rows="10" readonly th:text="${variety.varietyText}"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>예능 사진</th>
+                        <td>
+                            <img th:if="${variety.varietyImg != null}"
+                                 th:src="@{${variety.varietyImg}}"
+                                 th:alt="${variety.varietyName}">
+                            <p th:if="${variety.varietyImg == null}">사진이 없습니다.</p>
+                        </td>
+                    </tr>
+                </table>
+                <div id="variety_details_button">
+                    <a th:href="@{/admin/varietyList}" class="btn">목록</a>
+                    <button type="button" th:onclick="'location.href=\'/admin/variety_modify/' + ${variety.varietyNo} + '\' '">수정</button>
+                    <button type="button" onclick="confirmDelete()">삭제</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<script>
+    function confirmDelete() {
+        if (confirm("삭제하시겠습니까?")) {
+            document.getElementById("varietyDetailsForm").submit();
+        }
+    }
+</script>
+</body>
+</html>

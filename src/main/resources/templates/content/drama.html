@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayVista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/content/drama.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+
+<main class="drama">
+    <section class="ott_slide">
+        <ul class="slide-list">
+            <li>
+                <a th:href="@{'/drama/' + 1008}"><img src="/img/drama/1000원짜리 변호사 (가로).jpg" alt="Slide 1"></a>
+            </li>
+            <li><a th:href="@{'/drama/' + 1002}"><img src="/img/drama/모범택시 (가로).jpg" alt="Slide 2"></a></li>
+            <li><a th:href="@{'/drama/' + 1022}"><img src="/img/drama/미스터 션샤인 (가로).jpg" alt="Slide 3"></a></li>
+        </ul>
+        <ul class="pagination"></ul>
+        <div class="arrows">
+            <button class="left-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section>
+        <div id="drama_select">
+            <h3>드라마</h3>
+            <form action="/drama/filter" method="GET">
+                <select name="category" id="dramaCategory">
+                    <option value="전체">전체</option>
+                    <option value="사극/시대극">사극/시대극</option>
+                    <option value="로맨스/코미디/가족">로맨스/코미디/가족</option>
+                    <option value="액션/스릴러/범죄">액션/스릴러/범죄</option>
+                </select>
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </section>
+    <section class="drama_ch2">
+        <div class="drama_ch2_list" id="dramaList">
+            <div class="drama_series">
+                <div class="series_content" th:each="drama : ${dramas}">
+                    <a th:href="@{'/drama/' + ${drama.dramaNo}}">
+                        <div>
+                            <img th:src="@{${drama.dramaImg} != null ? ${drama.dramaImg} : '/img/default-image.jpg'}"
+                                 alt="${drama.dramaName} 이미지">
+                            <p th:if="${drama.dramaImg == null}">사진이 없습니다.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</main>
+
+
+<footer th:replace="common/footer :: footerFragment"></footer>
+<button id="backToTop" class="back-to-top"><i class="fa-solid fa-chevron-up"></i></button>
+<script th:src="@{/js/motion.js}"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+/* 드라마 상세 페이지 */
+.admin_drama_details {
+    display: flex;
+    margin-left: 44px;
+}
+.admin_drama_details img {
+    width: 240px;
+    height: 360px;
+}
+
+.drama_details_form {
+    width: 1000px;
+    margin: 125px 580px;
+}
+
+
+
+.drama_details_form h1 {
+    text-align: center;
+}
+
+.drama_details_form_table table {
+    border: 1px solid #fff;
+    width: 1000px;
+    border-collapse: collapse;
+    height: 145px;
+    margin-top: 20px;
+}
+
+.drama_details_form_table table th,
+.drama_details_form_table table td {
+    border: 1px solid #fff;
+}
+
+.drama_details_form_table table th {
+    width: 85px;
+}
+
+.drama_details_form_table table td {
+    width: 100px;
+    padding: 8px;
+}
+.drama_details_form_table video {
+    width: 601px;
+    height: 400px;
+    margin-left: 148px;
+
+}
+
+
+.drama_details_form textarea {
+    background-color: inherit;
+    resize: none;
+    width: 500px;
+    border: none;
+    outline: none;
+   /*padding: 5px;*/
+    color: #fff;
+}
+
+#drama_details_button {
+    display: flex;
+    margin-left: 410px;
+}
+
+.drama_details_form button, .drama_details_form a{
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 10px;
+    font-size: 16px;
+}
+.drama_details_form a {
+    padding: 14px;
+
+}
+
+#videoPreview {
+    max-width: 100%;
+    height: auto;
+    display: none; /* Initially hidden */
+}
+
+/* 영화 상세 페이지 */
+
+.admin_movie_details {
+    display: flex;
+    margin-left: 44px;
+}
+.admin_movie_details img {
+    width: 240px;
+    height: 360px;
+}
+
+.movie_details_form {
+    width: 1000px;
+    margin: 125px 580px;
+}
+
+
+
+.movie_details_form h1 {
+    text-align: center;
+}
+
+.movie_details_form_table table {
+    border: 1px solid #fff;
+    width: 1000px;
+    border-collapse: collapse;
+    height: 145px;
+    margin-top: 20px;
+}
+
+.movie_details_form_table table th,
+.movie_details_form_table table td {
+    border: 1px solid #fff;
+}
+
+.movie_details_form_table table th {
+    width: 70px;
+}
+
+.movie_details_form_table table td {
+    width: 100px;
+}
+.movie_details_form_table video {
+    width: 800px;
+    height: 400px;
+
+}
+.movie_details_form_table input {
+    background-color: inherit;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+
+.movie_details_form_table textarea {
+    background-color: inherit;
+    resize: none;
+    width: 500px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: #fff;
+}
+#movie_details_button {
+    display: flex;
+    margin-left: 410px;
+}
+
+.movie_details_form button, .movie_details_form a{
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.movie_details_form a {
+    padding: 14px;
+
+}
+
+
+
+
+/* 예능 상세 페이지 */
+
+.admin_variety_details {
+    display: flex;
+    margin-left: 44px;
+}
+
+.admin_variety_details img {
+    width: 240px;
+    height: 360px;
+}
+
+.variety_details_form {
+    width: 1000px;
+    margin: 125px 580px;
+}
+
+
+
+.variety_details_form h1 {
+    text-align: center;
+}
+
+.variety_details_form_table table {
+    border: 1px solid #fff;
+    width: 1000px;
+    border-collapse: collapse;
+    height: 145px;
+    margin-top: 20px;
+}
+
+.variety_details_form_table table th,
+.variety_details_form_table table td {
+    border: 1px solid #fff;
+}
+
+.variety_details_form_table table th {
+    width: 70px;
+}
+
+.variety_details_form_table table td {
+    width: 100px;
+}
+.variety_details_form_table video {
+    width: 800px;
+    height: 400px;
+
+}
+.variety_details_form_table input {
+    background-color: inherit;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+
+.variety_details_form_table textarea {
+    background-color: inherit;
+    resize: none;
+    width: 500px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: #fff;
+}
+
+#variety_details_button {
+    display: flex;
+    margin-left: 410px;
+}
+
+.variety_details_form button {
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+     margin-left: 10px;
+}
+
+.variety_details_form button, .variety_details_form a{
+    width: 91px;
+    height: 50px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #FFC107;
+    color: #fff;
+    border: 1px solid #FFC107;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.variety_details_form a {
+    padding: 14px;
+
+}

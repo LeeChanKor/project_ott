@@ -1,0 +1,538 @@
+/* 공통 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    color:inherit;
+    text-decoration: none;
+}
+
+
+
+
+/* header */
+
+body {
+    background-color: #2C2C2C;
+    color: #FFFFFF;
+    max-width: 1920px;
+
+}
+
+header {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1007;
+    background-color: #2C2C2C;
+    padding: 20px 108px;
+}
+
+.logo_name {
+    margin-right: 31px;
+}
+
+.logo_name h1 {
+    color: #FFC107;
+    cursor: pointer;
+}
+
+.ott_header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ott_sort {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.ott_sort ul {
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.ott_sort li {
+    font-size: 20px;
+    margin-right: 39px;
+}
+
+.ott_sort li:last-child {
+    margin-right: 0;
+}
+
+.ott_sort li:hover {
+    font-weight: 700;
+}
+
+.ott_header .search {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    position: relative; /* my 버튼의 상대 위치 설정 */
+}
+
+
+/* 이미지 버튼 스타일 설정 */
+.find-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 79px;
+}
+
+.find-button img {
+    width: 36px; /* 이미지 크기 조정 */
+    height: 36px;
+    cursor: pointer;
+}
+
+/* my 버튼과 로그인 메뉴 스타일 */
+.my-button {
+    background-color: inherit;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px; /* 간격 설정 */
+}
+.my-button img {
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+}
+
+
+
+.search .my-menu {
+    position: relative; /* 부모 요소에 상대적 위치 설정 */
+}
+
+.search .my-menu .login-menu {
+    display: none; /* 기본적으로 메뉴를 숨김 */
+    position: absolute;
+    left: -18px;
+    background-color: #333;
+    padding: 10px;
+    width: 168px; /* 메뉴의 너비를 충분히 설정 */
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
+    text-align: center;
+}
+
+.search .my-menu:hover .login-menu,
+.search .login-menu:focus-within {
+    display: block; /* hover나 focus-within 시 메뉴를 표시 */
+}
+
+.search .login-menu a {
+    display: block; /* 메뉴 항목을 블록 요소로 설정하여 각각 한 줄로 표시 */
+    color: white; /* 텍스트 색상 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+    padding: 5px 10px; /* 항목 간격 설정 */
+    border-radius: 3px; /* 항목의 둥근 모서리 */
+}
+
+.search .login-menu a:hover {
+    background-color: #444; /* 마우스를 올릴 때 배경색 변경 */
+}
+
+.search .my-menu .my-button {
+    cursor: pointer; /* 버튼 클릭 시 커서 스타일 설정 */
+}
+
+
+/* 반응형 스타일 - 태블릿 (최대 너비 1024px) */
+@media (max-width: 1024px) {
+    header {
+        padding: 15px 40px;
+    }
+
+    .logo_name h1 {
+        font-size: 22px;
+    }
+
+    .ott_sort ul {
+        justify-content: flex-end;
+    }
+
+    .ott_sort li {
+        font-size: 18px;
+        margin-right: 25px;
+    }
+
+    .find-button img,
+    .my-button img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+
+/* 반응형 스타일 - 모바일 (최대 너비 768px) */
+@media (max-width: 768px) {
+    body {
+        max-width: 768px;
+    }
+    header {
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 10px 20px;
+    }
+
+    .logo_name {
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+
+    .ott_sort {
+        flex-direction: column;
+    }
+
+    .ott_sort ul {
+        display: flex;
+        margin-left: -306px;
+        margin-top: 5px;
+     }
+
+    .ott_sort li {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+    .ott_header .search {
+        position: static; /* 모바일에서 position을 static으로 변경 */
+    }
+
+    .find-button {
+        margin-right: 10px;
+    }
+
+
+    .search_page {
+        padding-left: 0;
+        margin-right: 10px;
+        margin-top: -50px;
+        margin-left: 157px;
+    }
+
+    .search_page input {
+        width: 676px; /* 적절한 크기로 조정 */
+
+    }
+
+    .my-menu {
+        right: 0;
+        top: 50px;
+        position: relative; /* 추가: position 속성 지정 */
+        margin-left: 10px !important;
+    }
+
+    .my-menu .login-menu {
+        width: auto;
+    }
+}
+
+
+
+
+
+/* footer */
+footer {
+    padding-top: 62px;
+    padding-bottom: 62px;
+    position: relative;
+    font-size: 19px;
+    color: #6e6e6e;
+    margin-left: 94px;
+}
+
+footer nav {
+    border-top: 1px solid #212121;
+    padding: 26px 0px;
+    color: #a3a3a3;
+    width: 95%;
+}
+
+.footer_contents a {
+    margin-right: 26px;
+    transition: color 0.1s ease 0s;
+    white-space: nowrap;
+}
+
+.footer_contents a:hover {
+    font-weight: 700;
+}
+
+.copyright-box {
+    font-size: 16px;
+    line-height: 19px;
+    padding-bottom: 29px;
+    opacity: 1;
+}
+
+
+/* 위로 가기 버튼 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 13px;
+    display: none;
+    width: 50px;
+    height: 50px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.back-to-top i {
+    font-size: 24px;
+    line-height: 50px;
+}
+
+
+/* main slide */
+
+.ott_slide {
+    height: 700px;
+    overflow: hidden;
+    position: relative;
+   margin-left: -5px;
+}
+
+.ott_slide .slide-list {
+    display: flex;
+    height: 100%;
+    transition: 0.5s;
+}
+
+.ott_slide .slide-list li {
+    height: 100%;
+    width: 100%;
+    flex-shrink: 0;
+    font-size: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.ott_slide .slide-list li img {
+    width: 1683px;
+    height: 700px;
+}
+
+.arrows button {
+    background-color: inherit;
+    border-color: inherit;
+    border: none;
+}
+
+.arrows button:first-of-type {
+    position: absolute;
+    left: 7%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.arrows button:last-of-type {
+    position: absolute;
+    right: 7%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor:pointer;
+}
+
+.arrows i {
+    font-size: 48px;
+    color: #fff;
+    pointer-events: none;
+}
+
+button.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.pagination {
+    display: flex;
+    position: absolute;
+    bottom: 43px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pagination li {
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #aaa;
+}
+
+.pagination li.active {
+    background-color: #fff;
+}
+
+.pagination li + li {
+    margin-left: 10px;
+}
+
+.slide-list {
+    display: flex;
+}
+
+.slider {
+    position: relative;
+    overflow: visible; /* 버튼이 숨겨지지 않도록 overflow를 visible로 설정 */
+    background: #2c2c2c;
+    margin: auto; /* 가운데 정렬을 위해 추가 */
+
+}
+
+
+.drama-slide-list {
+    display: flex;
+    width: 1691px !important;
+}
+
+.movie-slide-list {
+    display: flex;
+    width: 1694px !important;
+}
+
+.variety-slide-list {
+    display: flex;
+    width: 1694px !important;
+}
+
+
+.slide-container {
+    overflow: hidden;
+    position: relative; /* 버튼 위치 조정을 위해 상대 위치로 설정 */
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    padding: 0;
+    margin: 0;
+}
+
+.slide-item {
+    list-style: none;
+    width: calc(100% / 7); /* 한 페이지에 7개의 슬라이드 표시 */
+    flex: 0 0 calc(100% / 7);
+    box-sizing: border-box;
+}
+
+.variety_slide-item {
+    list-style: none;
+    width: calc(100% / 7); /* 한 페이지에 7개의 슬라이드 표시 */
+    flex: 0 0 calc(100% / 7);
+    box-sizing: border-box;
+
+}
+
+.slides img {
+    width: 100%;
+    display: block;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+    width: 40px; /* 버튼 크기 조정 */
+    height: 40px; /* 버튼 크기 조정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-arrow {
+    left: 10px; /* left 값을 양수로 설정하여 페이지 안에 버튼이 표시되도록 조정 */
+}
+
+.right-arrow {
+    right: 10px; /* right 값을 양수로 설정하여 페이지 안에 버튼이 표시되도록 조정 */
+}
+
+
+
+/* 검색 페이지 */
+.search_page {
+   max-height: 100%;
+   overflow: hidden;
+   padding-left: 180px;
+   margin-right: 73px;
+}
+
+}
+
+.search_page label {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    padding: 58px 0px 15px;
+    border-bottom: 2px solid #fff;
+}
+
+.search_page input {
+    width: 776px;
+    outline: none;
+    border-width: 0px;
+    background-color: #47454057;
+    font-size: 31.2px;
+    font-weight: 400;
+    line-height: normal;
+    transition: border-bottom 0.3s ease;
+    cursor: pointer;
+    color: #fff;
+
+
+}
+
+.search_page input:focus {
+    border-bottom: 2px solid #dcdcdc;
+    opacity: 0.5;
+
+}
+
+
+.search_page button {
+    position: absolute;
+    right: 80px;
+    margin: 0;
+    width: 42px;
+    height: 42px;
+    opacity: 0.4;
+}

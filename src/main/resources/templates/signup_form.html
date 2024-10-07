@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sign_up.css}">
+
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="sign_up">
+    <div class="sign_logo logo_name">
+        <a th:href="@{/main}">
+            <h1>PlayVista</h1>
+        </a>
+    </div>
+    <main class="sign_up_box">
+        <div class="sign_up_form">
+            <div>
+                <h4>회원가입</h4>
+            </div>
+        </div>
+        <form id="signupForm" th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+            <div class="sign_box">
+                <div class="user_login_box">
+                    <label for="username" class="user_id">사용자ID</label>
+                    <input type="text" id="username" name="username" class="form-control">
+                    <span class="error" id="usernameError"></span>
+                </div>
+                <div class="user_pass">
+                    <label for="password1" class="user_password">비밀번호</label>
+                    <input type="password" id="password1" name="password1" class="form-control">
+                    <span class="error" id="password1Error"></span>
+                </div>
+                <div class="user_pass">
+                    <label for="password2" class="pass_check">비밀번호 확인</label>
+                    <input type="password" id="password2" name="password2" class="form-control">
+                    <span class="error" id="password2Error"></span>
+                </div>
+                <div class="user_email">
+                    <label for="email" class="email">이메일</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                    <span class="error" id="emailError"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">회원가입</button>
+            </div>
+        </form>
+    </main>
+</div>
+
+<script>
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
+       // 기본 폼 제출 동작 방지
+       event.preventDefault();
+
+       // 각 필드의 값 가져오기
+       var username = document.querySelector('input[name="username"]').value;
+       var password1 = document.querySelector('input[name="password1"]').value;
+       var password2 = document.querySelector('input[name="password2"]').value;
+       var email = document.querySelector('input[name="email"]').value;
+
+       // 오류 메시지 초기화
+       document.getElementById("usernameError").textContent = "";
+       document.getElementById("password1Error").textContent = "";
+       document.getElementById("password2Error").textContent = "";
+       document.getElementById("emailError").textContent = "";
+
+       // 필드 검증
+       if (!username || !password1 || !password2 || !email) {
+           alert("모든 필드를 입력해주세요.");
+           return; // 폼 제출 방지
+       }
+
+       if (password1 !== password2) {
+           alert("비밀번호가 일치하지 않습니다.");
+           return; // 폼 제출 방지
+       }
+
+       // FormData 객체를 사용하여 폼 데이터를 가져옵니다
+       var formData = new FormData(this);
+
+       // Ajax 요청으로 폼 데이터 전송
+       fetch(this.action, {
+           method: 'POST',
+           body: formData
+       })
+       .then(response => response.text())  // HTML 응답으로 처리
+       .then(data => {
+           // HTML 응답을 처리하여 오류 메시지를 표시
+           if (data.includes("이미 등록된 사용자입니다.")) {
+               alert("이미 등록된 사용자입니다.");
+           } else if (data.includes("회원가입 중 오류가 발생했습니다.")) {
+               alert("회원가입 중 오류가 발생했습니다.");
+           } else {
+               alert("회원가입 되었습니다.");
+               window.location.href = "/login";  // 로그인 페이지로 이동
+           }
+       })
+       .catch(error => {
+           alert("회원가입 중 오류가 발생했습니다: " + error.message);
+       });
+   });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+
+.my_watch {
+    margin-top: 96px;
+}
+
+
+.my_watch_header {
+    background: #4d4f3e94;
+
+    height: 116px;
+
+}
+
+.my_watch_header h1 {
+    margin: 0 94px;
+    padding: 37px 0px 0px 0px;
+}
+.my_watch_list {
+    margin: 0 94px;
+}
+.my_watch_list ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.my_watch_list li {
+  margin-top: 39px;
+  width: calc((100% - 4* 5px) / 6);
+  box-sizing: border-box;
+
+}
+.my_watch_list li:nth-child(5n) {
+    margin-right: 0; /* 각 줄의 마지막 항목의 오른쪽 여백 제거 */
+}
+
+
+/* 관심있는 프로그램 */
+
+.my_program {
+    margin-top: 96px;
+}
+
+
+.my_program_header {
+    background: #4d4f3e94;
+    height: 116px;
+
+}
+
+.my_program_header h1 {
+    margin: 0 94px;
+    padding: 37px 0px 0px 0px;
+}
+.my_program_list {
+    margin: 0 94px;
+}
+.my_program_list ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.my_program_list li {
+    margin-top: 39px;
+    width: calc((91% - 6* 6px) / 6);
+    box-sizing: border-box;
+    margin-right: 33px;
+
+}
+.my_program_list li:nth-child(6n) {
+    margin-right: 0; /* 각 줄의 마지막 항목의 오른쪽 여백 제거 */
+}
+
+.my_program_list img {
+    width: 260px;
+    height: 400px;
+    border-radius: 2px;
+}
+
+.my_program_list img:hover {
+    transform: translateY(-2%);
+}
+
+
+
+.heart-toggle {
+    cursor: pointer;
+}
+
+.my_program .fav_heart {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.my_program .fav_heart h4 {
+    margin-left: 15px;
+    font-size: 20px;
+    margin-top: -6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.my_program_list .heart {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    opacity: 0.81;
+    transition: opacity 0.1s ease 0s;
+    width: 40px;
+    height: 40px;
+}
+
+.my_program .heart img{
+    width: 40px;
+    height: 40px;
+}
+
+
+/* 관심있는 영화 */
+
+.my_movie {
+    margin-top: 96px;
+}
+
+
+.my_movie_header {
+    background: #4d4f3e94;
+    height: 116px;
+
+}
+
+.my_movie_header h1 {
+    margin: 0 94px;
+    padding: 37px 0px 0px 0px;
+}
+.my_movie_list {
+    margin: 0 94px;
+}
+.my_movie_list ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.my_movie_list li {
+    margin-top: 39px;
+    width: calc((91% - 6* 6px) / 6);
+    box-sizing: border-box;
+    margin-right: 33px;
+
+}
+.my_movie_list li:nth-child(6n) {
+    margin-right: 0; /* 각 줄의 마지막 항목의 오른쪽 여백 제거 */
+}
+
+.my_movie_list img {
+    width: 260px;
+    height: 400px;
+    border-radius: 2px;
+}
+
+.my_movie_list img:hover {
+    transform: translateY(-2%);
+}
+
+.my_movie .bin_heart {
+    width: 40px;
+    height: 40px;
+}
+
+
+.my_movie .fav_heart {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.my_movie .fav_heart h4 {
+    margin-left: 15px;
+    font-size: 20px;
+    margin-top: -6px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.my_watch_delete {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+
+}
+.my_watch_delete button {
+    background-color: transparent;
+    border: 1px solid #a5a5a5;
+    color: #a5a5a5;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 3px;
+}
+
+.my_watch_delete button:hover {
+    color: #fff;
+}
+.my_watch_delete #editButton {
+    margin-right: 44px;
+    margin-left: 31px;
+
+
+}
+
+#editOptions {
+    display: flex;
+    align-items: center;
+}
+
+.my_watch_delete span {
+    color: rgb(255 255 255 / 30%);
+    margin-left: 26px;
+    margin-right: 26px;
+
+}
+
+#selectAllButton, #deleteButton {
+    border: none;
+}
+
+.image-container {
+    position: relative; /* 컨테이너를 상대적으로 위치 */
+    display: inline-block; /* 인라인 블록으로 설정 */
+}
+
+.delete-checkbox {
+    position: absolute;
+    top: 10px; /* 이미지 상단에 위치 */
+    left: 10px; /* 이미지 좌측에 위치 */
+    z-index: 3; /* 이미지보다 체크박스가 앞에 위치 */
+    cursor: pointer; /* 클릭 가능한 커서 스타일 */
+    width: 20px;
+    height: 20px;
+
+}
+
+
+
+.my_watch_list img {
+    width: 260px;
+    height: 400px;
+    border-radius: 2px;
+    z-index: 1; /* 이미지의 우선순위를 낮게 설정 */
+}
+
+.my_watch label {
+    position: relative;
+    z-index: 2; /* 이미지나 다른 요소보다 앞에 위치하도록 설정 */
+    display: block;
+}
+
+.image-container:hover .delete-checkbox {
+    opacity: 1; /* 호버 시 체크박스가 잘 보이도록 설정 */
+}
+
+.my_watch_list a {
+    text-decoration: none; /* 이미지에 링크가 포함된 경우 장식 제거 */
+    pointer-events: auto; /* 이미지를 클릭하면 상세 페이지로 이동하도록 */
+}
+
+
+/* 관심있는 영화 편집 삭제*/
+
+.my_movie_delete {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+
+}
+.my_movie_delete button {
+    background-color: transparent;
+    border: 1px solid #a5a5a5;
+    color: #a5a5a5;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 3px;
+}
+
+.my_movie_delete button:hover {
+    color: #fff;
+}
+.my_movie_delete #editButton {
+    margin-right: 44px;
+    margin-left: 31px;
+
+
+}
+
+#editOptions {
+    display: flex;
+    align-items: center;
+}
+
+.my_movie_delete span {
+    color: rgb(255 255 255 / 30%);
+    margin-left: 26px;
+    margin-right: 26px;
+
+}
+
+#selectAllButton, #deleteButton {
+    border: none;
+}
+
+
+
+
+.my_movie_list img {
+    width: 260px;
+    height: 400px;
+    border-radius: 2px;
+    z-index: 1; /* 이미지의 우선순위를 낮게 설정 */
+}
+
+.my_movie label {
+    position: relative;
+    z-index: 2; /* 이미지나 다른 요소보다 앞에 위치하도록 설정 */
+    display: block;
+}
+
+.image-container:hover .delete-checkbox {
+    opacity: 1; /* 호버 시 체크박스가 잘 보이도록 설정 */
+}
+
+.my_movie_list a {
+    text-decoration: none; /* 이미지에 링크가 포함된 경우 장식 제거 */
+    pointer-events: auto; /* 이미지를 클릭하면 상세 페이지로 이동하도록 */
+}
+
+
+/*관심 있는 프로그램 삭제*/
+
+.my_program_delete {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+
+}
+.my_program_delete button {
+    background-color: transparent;
+    border: 1px solid #a5a5a5;
+    color: #a5a5a5;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 3px;
+}
+
+.my_program_delete button:hover {
+    color: #fff;
+}
+.my_program_delete #editButton {
+    margin-right: 44px;
+    margin-left: 31px;
+
+
+}
+
+
+.my_program_delete span {
+    color: rgb(255 255 255 / 30%);
+    margin-left: 26px;
+    margin-right: 26px;
+
+}
+
+.my_program_list img {
+    width: 260px;
+    height: 400px;
+    border-radius: 2px;
+    z-index: 1; /* 이미지의 우선순위를 낮게 설정 */
+}
+
+.my_program label {
+    position: relative;
+    z-index: 2; /* 이미지나 다른 요소보다 앞에 위치하도록 설정 */
+    display: block;
+}
+
+
+

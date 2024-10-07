@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>관심 있는 프로그램</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage/my_watch.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main class="my_program">
+    <section class="my_program_header">
+        <h1>관심 있는 프로그램</h1>
+    </section>
+    <section class="my_program_list">
+        <div class="my_program_delete">
+            <div id="editOptions" style="display: none;">
+                <button type="button" id="selectAllButton">전체 선택</button>
+                <span>|</span>
+                <button type="button" id="deleteButton">삭제</button>
+            </div>
+            <button type="button" id="editButton">편집</button>
+        </div>
+        <ul>
+            <li th:each="favorite : ${favoriteList}" th:if="${favorite.dramaNo != null || favorite.varietyNo != null}">
+                <div class="image-container">
+                    <input type="checkbox" class="delete-checkbox"
+                           th:id="'checkbox-' + ${favorite.favoriteNo}"
+                           th:value="${favorite.varietyNo != null ? favorite.varietyNo.varietyNo : (favorite.dramaNo != null ? favorite.dramaNo.dramaNo : 0)}"
+                           th:data-type="${favorite.varietyNo != null ? 'variety' : (favorite.dramaNo != null ? 'drama' : '')}"
+                           style="display:none;"
+                           id="checkbox-${favorite.favoriteNo}"/>
+                    <label class="checkbox-label" for="checkbox-${favorite.favoriteNo}">
+                        <a th:href="${favorite.dramaNo != null ? '/drama/' + favorite.dramaNo.dramaNo : (favorite.varietyNo != null ? '/variety/' + favorite.varietyNo.varietyNo : '#')}">
+                            <img th:src="${favorite.dramaNo != null ? favorite.dramaNo.dramaImg : (favorite.varietyNo != null ? favorite.varietyNo.varietyImg : '#')}" alt="프로그램 이미지">
+                        </a>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </section>
+</main>
+
+<footer th:replace="common/footer :: footerFragment"></footer>
+
+<script>
+    let isAllSelected = false; // 전체 선택 상태 변수
+
+// 편집 버튼 클릭 시
+document.getElementById('editButton').addEventListener('click', function() {
+    const editOptions = document.getElementById('editOptions');
+    const editButton = document.getElementById('editButton');
+    const checkboxes = document.querySelectorAll('.delete-checkbox');
+
+    if (editOptions.style.display === 'none') {
+        editOptions.style.display = 'block';
+        editButton.textContent = '완료'; // 버튼 텍스트 변경
+        checkboxes.forEach(checkbox => {
+            checkbox.style.display = 'inline-block'; // 체크박스 표시
+        });
+    } else {
+        editOptions.style.display = 'none';
+        editButton.textContent = '편집'; // 버튼 텍스트 원래대로 변경
+        checkboxes.forEach(checkbox => {
+            checkbox.style.display = 'none'; // 체크박스 숨김
+        });
+    }
+});
+
+// 삭제 버튼 클릭 시
+document.getElementById('deleteButton').addEventListener('click', function() {
+    const checkedCheckboxes = Array.from(document.querySelectorAll('.delete-checkbox:checked'));
+
+    // 드라마 ID와 예능 ID를 각각 필터링
+    const dramaIdsToDelete = checkedCheckboxes
+        .filter(checkbox => checkbox.dataset.type === 'drama')
+        .map(checkbox => parseInt(checkbox.value));
+
+    const varietyIdsToDelete = checkedCheckboxes
+        .filter(checkbox => checkbox.dataset.type === 'variety')
+        .map(checkbox => parseInt(checkbox.value));
+
+    // 디버깅용 콘솔 출력
+    checkedCheckboxes.forEach(checkbox => console.log('체크된 값:', checkbox.value));
+    console.log('선택된 드라마 ID 목록:', dramaIdsToDelete);
+    console.log('선택된 예능 ID 목록:', varietyIdsToDelete);
+
+    if (dramaIdsToDelete.length === 0 && varietyIdsToDelete.length === 0) {
+        alert('삭제할 항목을 선택하세요.');
+        return;
+    }
+
+    if (confirm('정말로 삭제하시겠습니까?')) {
+        const requestBody = {
+            dramaNos: dramaIdsToDelete,
+            varietyNos: varietyIdsToDelete
+        };
+
+        fetch('/my_program/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('서버 응답:', data);
+            if (data.message === "삭제 성공") {
+                location.reload();
+            } else {
+                alert(data.error || data.message);
+            }
+        })
+        .catch(error => {
+            console.error('에러 메시지:', error);
+            alert(error.message);
+        });
+    }
+});
+
+// 전체 선택 버튼 클릭 시
+document.getElementById('selectAllButton').addEventListener('click', function() {
+    const checkboxes = document.querySelectorAll('.delete-checkbox');
+
+    if (isAllSelected) {
+        // 전체 해제
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        this.textContent = '전체 선택';  // 버튼 텍스트 변경
+    } else {
+        // 전체 선택
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        this.textContent = '전체 해제';  // 버튼 텍스트 변경
+    }
+
+    isAllSelected = !isAllSelected;  // 상태 반전
+});
+
+// 편집 모드일 때 이미지를 클릭해도 상세 페이지로 이동하지 않도록 설정
+document.querySelectorAll('.image-container a').forEach(anchor => {
+    anchor.addEventListener('click', function(event) {
+        const editButton = document.getElementById('editButton');
+        if (editButton.textContent === '완료') {
+            event.preventDefault();  // 편집 모드일 때는 상세 페이지로 이동하지 않음
+            const checkbox = this.closest('.image-container').querySelector('.delete-checkbox');
+            checkbox.checked = !checkbox.checked;  // 체크박스 상태를 반전
+        }
+    });
+});
+
+// 체크박스 클릭 시 이벤트 전파 방지 (체크박스 클릭 시 이미지 클릭 방지)
+document.querySelectorAll('.delete-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('click', function(event) {
+        event.stopPropagation();  // 체크박스 클릭 시 이미지 클릭 이벤트가 전달되지 않도록 전파 방지
+    });
+});
+
+
+
+</script>
+
+</body>
+</html>

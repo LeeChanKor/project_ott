@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}">
+</head>
+<body>
+<div class="admin_header">
+    <div>
+        <div class="logo_name">
+            <a th:href="@{/main}">
+                <h1>PlayVista</h1>
+            </a>
+        </div>
+    </div>
+</div>
+<main class="admin_varitey_lists">
+    <div class="admin_page_bar">
+        <div class="bar">
+            <a th:href="@{/admin}" class="admin_home">관리자 홈</a>
+            <div class="admin_user">
+                <p>회원 관리</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_user_list}">회원 목록</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="admin_reg">
+                <p>등록</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin/dramaList}">드라마</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/varietyList}">예능</a>
+                    </li>
+                    <li><a th:href="@{/admin/MovieList}">영화</a></li>
+                </ul>
+            </div>
+            <div class="admin_company">
+                <p>관리자</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_list}">관리자 목록</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="admin_variety">
+        <h1>예능</h1>
+        <div class="admin_variety_search">
+            <form method="get" action="/admin/varietyList" class="admin_variety_input">
+                <div class="admin_variety_reg_list">
+                    <div class="admin_varieties admin_variety_input">
+                        <input type="text" name="kw" id="search_kw" class="form-control search-input" th:value="${kw}">
+                    </div>
+                    <div class="admin_varieties variety_search">
+                        <button type="submit">검색</button>
+                    </div>
+                    <div class="admin_varieties variety_reg">
+                        <a th:href="@{/admin_variety_register}">등록</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="admin_variety_table">
+            <table>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>등록일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="variety : ${varieties}">
+                    <td th:text="${variety.varietyNo}">번호</td>
+                    <td>
+                        <a th:href="@{'/admin/admin_variety_details/' + ${variety.varietyNo}}" th:text="${variety.varietyName}">제목</a>
+                    </td>
+                    <td th:text="${#dates.format(variety.registerDate, 'yyyy-MM-dd')}">등록일</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- 페이징 처리 시작 -->
+            <div th:if="${!paging.isEmpty()}">
+                <ul class="paginationd justify-content-center">
+                    <li th:each="page : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                        th:if="${page >= paging.number - 5 and page <= paging.number + 5}"
+                        th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                        <a class="page-link" th:href="@{/admin/varietyList(page=${page})}" th:text="${page + 1}"></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

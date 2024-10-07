@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayVista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+</head>
+<body>
+
+<footer th:fragment="footerFragment">
+    <section class="footer_contents">
+        <div class="inner_wrap">
+            <nav class="footer-util">
+                <div class="css-vnrtdc">
+                    <span><a th:href="@{/help/notice}">고객센터</a></span>
+                    <span><a th:href="@{/policy/terms}">이용약관</a></span>
+                    <span><a th:href="@{/policy/privacy}"><strong>개인정보처리방침</strong></a></span>
+                    <span><a th:href="@{/policy/youth}">청소년 보호정책</a></span>
+                    <span><a sec:authorize="isAuthenticated() and not hasRole('ROLE_ADMIN')" th:href="@{/mypage}">마이페이지</a></span>
+                    <span><a sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')"  th:href="@{/admin}">관리자 페이지</a></span>
+                </div>
+            </nav>
+
+            <div class="foot_select_wrap">
+                <div class="copyright-box">
+                    <p>
+                        <span>대표이사 : 최주희</span>
+                        <span><a class="btn_business">사업자정보확인</a></span>
+                        <span>사업자등록번호 : 188-88-01893</span>
+                        <span>통신판매신고번호 : 2020-서울마포-36</span>
+                    </p>
+                    <p>
+                        <span>사업장 : 서울특별시 마포구 상암산로 34, DMC디지털큐브 15층(상암동)</span>
+                        <span>호스팅사업자 : 씨제이올리브네트웍스(주)</span>
+                    </p>
+                    <p>
+                        <span>고객센터 (평일 09시~17시/점심시간 13시~14시)</span>
+                        <span class="btn_inquiry"><a>1:1 게시판 문의</a></span>
+                        <span>대표메일 : PlayVista@cj.net</span>
+                        <span>전화번호(ARS) : 1670-1525 (챗봇/채팅 상담 연결)</span>
+                    </p>
+                    <p>
+                        <span>ENM 시청자 상담실 (편성 문의 및 시청자 의견) : 080-080-0780</span>
+                        <span>Mnet 고객센터(방송편성문의) : 1855-1631</span>
+                    </p>
+                </div>
+                <p class="copyright">Copyright © 주식회사 PlayVista All right reserved.</p>
+            </div>
+        </div>
+    </section>
+</footer>
+
+
+
+
+
+</body>

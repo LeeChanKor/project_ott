@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayVista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage/mypage.css}">
+</head>
+<body>
+<header th:replace="common/header :: headerFragment"></header>
+<main class="mypage">
+    <section class="profile">
+        <div>
+            <section class="mypage_profile">
+                <article class="article">
+                    <div class="profile_img">
+                        <picture>
+                            <img src="./img/profile_img.jpg" alt="">
+                        </picture>
+                    </div>
+                    <div class="profile_name">
+                        <div class="name">
+                            <p th:text="${username}"></p>님
+                        </div>
+                    </div>
+                    <div class="info_modify">
+                        <div class="modify">
+                            <a th:href="@{/user_modify}" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20.5" height="20" viewBox="0 0 20.5 20"><defs><style>.icon_user_info_edit_svg__cls-1{fill:none}.icon_user_info_edit_svg__cls-4{fill:gray}.icon_user_info_edit_svg__cls-5{stroke:none}</style></defs><g id="icon_user_info_edit_svg__icon_\uD68C\uC6D0\uC815\uBCF4\uC218\uC815" transform="translate(-1047.5 -136)"><path id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2708" d="M0 0h20v20H0z" class="icon_user_info_edit_svg__cls-1" transform="translate(1048 136)"></path><g id="icon_user_info_edit_svg__\uADF8\uB8F9_4409" transform="translate(127 -9.5)"><g id="icon_user_info_edit_svg__\uD0C0\uC6D0_342" fill="none" stroke="gray" stroke-width="2" transform="translate(922 150.026)"><circle cx="6.5" cy="6.5" r="6.5" class="icon_user_info_edit_svg__cls-5"></circle><circle cx="6.5" cy="6.5" r="5.5" class="icon_user_info_edit_svg__cls-1"></circle></g><g id="icon_user_info_edit_svg__\uD0C0\uC6D0_342-2" fill="gray" stroke="gray" stroke-width="2" transform="translate(926.8 154.8)"><circle cx="1.7" cy="1.7" r="1.7" class="icon_user_info_edit_svg__cls-5"></circle><circle cx="1.7" cy="1.7" r="0.7" class="icon_user_info_edit_svg__cls-1"></circle></g><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2718" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="translate(927.099 148.5)"></rect><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2720" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="translate(920.5 155.099)"></rect><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2721" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="translate(933.698 155.099)"></rect><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2722" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="rotate(45 285.925 1201.734)"></rect><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2723" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="rotate(45 269.639 1194.6)"></rect><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2724" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="rotate(45 274.579 1206.434)"></rect><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2725" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="rotate(45 281.018 1189.886)"></rect><rect id="icon_user_info_edit_svg__\uC0AC\uAC01\uD615_2719" width="2.828" height="2.828" class="icon_user_info_edit_svg__cls-4" rx="1.2" transform="translate(927.099 161.698)"></rect></g></g></svg>
+                                회원정보수정</a>
+                        </div>
+                    </div>
+                    <div class="user_ticket">
+                        <div class="inuser_ticket">
+                            <p class="inuse">현재 이용중인 이용권</p>
+                            <p th:text="${membership != null && !#strings.isEmpty(membership) && membership != '회원권 없음' ? membership : '이용중인 이용권 없음'}" class="inuser_mem"></p>
+                        </div>
+                        <div class="ticket">
+                            <div class="ticket_sort">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><defs><style>.icon_my_ticket_svg__cls-2{fill:none;stroke:gray;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.2px}</style></defs><g id="icon_my_ticket_svg__icon_\uC774\uC6A9\uAD8C" transform="translate(-14)"><path id="icon_my_ticket_svg__\uC0AC\uAC01\uD615_2225" fill="none" d="M0 0h24v24H0z" transform="translate(14)"></path><g id="icon_my_ticket_svg__\uADF8\uB8F9_4392" transform="translate(-4.5 2.423)"><path id="icon_my_ticket_svg__\uBE7C\uAE30_6" d="M14.5 15h-13A1.5 1.5 0 010 13.5v-3.242a3.212 3.212 0 001.6-2.772A3.211 3.211 0 000 4.715V1.5A1.5 1.5 0 011.5 0h13A1.5 1.5 0 0116 1.5v3.217a3.222 3.222 0 000 5.568V13.5a1.5 1.5 0 01-1.5 1.5z" class="icon_my_ticket_svg__cls-2" transform="translate(19.5 3.076)"></path><path id="icon_my_ticket_svg__\uB2E4\uAC01\uD615_1" d="M2.6 0l2.6 4.165H0z" class="icon_my_ticket_svg__cls-2" transform="rotate(90 10.993 18.97)"></path></g></g></svg>
+                                나의 이용권
+                                <form id="membershipForm" th:action="@{/membership/update}" method="post">
+                                    <span>
+                                        <select name="membership">
+                                            <option value="베이직">베이직</option>
+                                            <option value="스탠다드">스탠다드</option>
+                                            <option value="프리미엄">프리미엄</option>
+                                        </select>
+                                        <button type="submit" id="submitButton">결제</button>
+                                    </span>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </article>
+            </section>
+        </div>
+    </section>
+    <!-- 시청기록 width 320 height 170 -->
+    <section class="my_history">
+        <div class="watch">
+            <div class="watch_txt">
+                <h1>시청 내역</h1>
+                <a th:href="@{/watch-history/my_watch}">
+                    <h3>더보기</h3>
+                </a>
+            </div>
+            <div class="watch_history">
+                <div>
+                    <ul>
+                        <li th:each="history : ${latestWatchHistory}">
+                            <div>
+                                <a th:href="${history.drama != null ? '/drama/' + history.drama.dramaNo :
+                (history.movie != null ? '/movie/' + history.movie.movieNo :
+                (history.variety != null ? '/variety/' + history.variety.varietyNo : '#'))}">
+                                    <img th:src="${history.drama != null ? history.drama.dramaImg :
+                    (history.movie != null ? history.movie.movieImg :
+                    (history.variety != null ? history.variety.varietyImg : 'default-image.jpg'))}"
+                                         alt="콘텐츠 이미지">
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 관심있는 프로그램 width 240, height 360 -->
+    <section class="my_program">
+        <div class="fav_program">
+            <div class="plus_series">
+                <h1>관심있는 프로그램</h1>
+                <a th:href="@{my_program}">
+                    <h3>더보기</h3>
+                </a>
+            </div>
+            <div class="fav_series">
+                <div>
+                    <ul>
+                        <li th:each="program : ${latestFavoritePrograms}">
+                            <a th:href="${program.url}">
+                                <img th:src="${program.image}" alt="${program.name}">
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="my_movie">
+        <div class="fav_movie">
+            <div class="plus_movie">
+                <h1>관심 있는 영화</h1>
+                <a th:href="@{/my_movie}">
+                    <h3>더보기</h3>
+                </a>
+            </div>
+            <div class="favorite_movie">
+                <ul>
+                    <li th:each="favoriteMovie : ${latestFavoriteMovies}">
+                        <div>
+                            <a th:href="@{/movie/{movieNo}(movieNo=${favoriteMovie.movieNo.movieNo})}">
+                                <img th:src="${favoriteMovie.movieNo.movieImg}" alt="관심 영화 포스터" th:if="${favoriteMovie.movieNo.movieImg != null}">
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM fully loaded and parsed');
+
+        const submitButton = document.getElementById('submitButton');
+        const membershipTextElement = document.querySelector('.inuser_mem');
+        const membershipForm = document.getElementById('membershipForm');
+
+        if (!submitButton || !membershipTextElement || !membershipForm) {
+            console.error('Elements not found');
+            return;
+        }
+
+        submitButton.addEventListener('click', function (event) {
+            event.preventDefault(); // 기본 폼 제출 동작을 막음
+
+            const membershipSelect = membershipForm.querySelector('select[name="membership"]');
+            const selectedMembership = membershipSelect.value;
+            const currentMembership = membershipTextElement.textContent.trim();
+
+            console.log('Selected membership:', selectedMembership);
+            console.log('Current membership:', currentMembership);
+
+            if (currentMembership === '이용중인 이용권 없음') {
+                // 현재 이용중인 이용권이 없는 경우
+                const userChoice = confirm('이용권을 결제하시겠습니까?');
+
+                if (userChoice) {
+                    alert('결제가 완료되었습니다.');
+                    // 폼 제출
+                    membershipForm.submit();
+                } else {
+                    alert('결제가 취소되었습니다.');
+                    // 결제 취소 시 폼 제출을 하지 않음
+                    return;
+                }
+            } else {
+                if (currentMembership !== '이용중인 이용권 없음' && currentMembership === selectedMembership) {
+                    alert('이미 이용중인 이용권과 동일한 이용권을 선택하셨습니다.');
+                    return;
+                }
+
+                const userChoice = confirm('이미 이용중인 이용권이 있습니다. 이용권을 변경하시겠습니까?');
+
+                if (userChoice) {
+                    alert('결제가 완료되었습니다.');
+                    // 폼 제출
+                    membershipForm.submit();
+                } else {
+                    alert('결제가 취소되었습니다.');
+                    // 결제 취소 시 폼 제출을 하지 않음
+                    return;
+                }
+            }
+        });
+    });
+
+
+</script>
+
+
+
+
+<footer th:replace="common/footer :: footerFragment"></footer>
+
+
+
+
+
+</body>
+</html>

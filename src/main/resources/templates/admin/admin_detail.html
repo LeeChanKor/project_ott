@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 등록 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/admin_register.css}">
+</head>
+<body>
+<div class="admin_header">
+    <div>
+        <div class="logo_name">
+            <a th:href="@{/main}">
+                <h1>PlayVista</h1>
+            </a>
+        </div>
+    </div>
+</div>
+<main class="admin_drama_register">
+    <div class="admin_page_bar">
+        <div class="bar">
+            <a th:href="@{/admin}" class="admin_home">관리자 홈</a>
+            <div class="admin_user">
+                <p>회원 관리</p>
+                <ul>
+                    <li><a th:href="@{/admin_user_list}">회원 목록</a></li>
+                </ul>
+            </div>
+            <div class="admin_reg">
+                <p>등록</p>
+                <ul>
+                    <li><a th:href="@{/admin/dramaList}">드라마</a></li>
+                    <li><a th:href="@{/admin/varietyList}">예능</a></li>
+                    <li><a th:href="@{/admin/MovieList}">영화</a></li>
+                </ul>
+            </div>
+            <div class="admin_company">
+                <p>관리자</p>
+                <ul>
+                    <li>
+                        <a th:href="@{/admin_list}">관리자 목록</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 관리자 상세정보 -->
+    <div class="admin_register_form">
+        <h1>관리자 상세정보</h1>
+        <div class="admin_register_form_table">
+            <form th:action="@{|/admin/delete_admin/${admin.username}|}" method="post" onsubmit="confirmDelete(event)">
+                <table>
+                    <tr>
+                        <th>Username</th>
+                        <td th:text="${admin.username}"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td th:text="${admin.email}">admin@example.com</td>
+                    </tr>
+                </table>
+                <div class="admin_button">
+                    <button type="button" onclick="window.location.href='/admin_list'" class="admin_detail_list">관리자 목록</button>
+                    <button type="submit" class="admin_delete_button"
+                            th:if="${admin.username != 'admin1'}">관리자 삭제</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script>
+    // 삭제 확인 함수
+    function confirmDelete(event) {
+        event.preventDefault(); // 폼 제출 중지
+        if (confirm("관리자 삭제를 하시겠습니까?")) { // 확인을 누르면
+            event.target.submit(); // 폼 제출
+        }
+    }
+</script>
+</body>
+</html>
