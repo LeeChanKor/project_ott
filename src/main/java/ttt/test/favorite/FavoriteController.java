@@ -76,6 +76,7 @@ public class FavoriteController {
 
         boolean isHearted = false;
 
+        // 요청된 타입에 따라 해당 항목을 찾아서 찜 상태를 토글
         if ("drama".equals(type)) {
             // 드라마 타입인 경우
             Drama drama = dramaRepository.findById(id).orElse(null);
